@@ -4,7 +4,7 @@
 #include <spdlog/spdlog.h>
 #pragma warning(pop)
 
-#include "../Core/Base.h"
+#include "Base.h"
 
 class Log
 {

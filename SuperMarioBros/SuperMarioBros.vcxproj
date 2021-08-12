@@ -157,10 +157,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Application.cpp" />
     <ClCompile Include="src\Core\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Application.h" />
     <ClInclude Include="src\Core\Log.h" />
     <ClInclude Include="src\Core\Base.h" />
   </ItemGroup>

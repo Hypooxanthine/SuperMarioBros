@@ -1,24 +1,10 @@
-#include <iostream>
-
-#include <SFML/Graphics.hpp>
+#include "Engine/Application.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(500, 500, 32), "Super Mario bros.");
+	Application app;
 
-	while (window.isOpen())
-	{
-		sf::Event e;
-
-		while (window.pollEvent(e))
-		{
-			if (e.type == sf::Event::Closed)
-				window.close();
-		}
-
-		window.clear();
-		window.display();
-	}
+	app.run();
 
 	std::cin.get();
 

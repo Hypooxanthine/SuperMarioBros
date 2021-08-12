@@ -21,12 +21,18 @@
     <ClCompile Include="src\Core\Log.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Application.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Base.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Log.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Application.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
