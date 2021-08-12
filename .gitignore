@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+
+# Builds
+Intermediate/*
+out-x86/*
+out-x64/*
+
+# Libraries
+External/SFML-x64/*
+External/SFML-x86/*
+External/spdlog/*
+
+.vs/*
