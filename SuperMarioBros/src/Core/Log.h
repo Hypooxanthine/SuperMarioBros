@@ -31,9 +31,4 @@ struct Loggable
 #define LOG_INFO(...)     ::Log::getLogger()->info(__VA_ARGS__)
 #define LOG_WARN(...)     ::Log::getLogger()->warn(__VA_ARGS__)
 #define LOG_ERROR(...)    ::Log::getLogger()->error(__VA_ARGS__)
-#else
-#define HZ_CORE_TRACE(...)
-#define HZ_CORE_INFO(...) 
-#define HZ_CORE_WARN(...) 
-#define HZ_CORE_ERROR(...)
 #endif
