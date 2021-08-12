@@ -1,6 +1,8 @@
 # SuperMarioBros
 Yet another Super Mario Bros. (NES) clone.
 
+Libraries : SFML, spdlog.
+
 This is a side project I created to improve my C++.
 
 Compatibilities : x86, x64.
