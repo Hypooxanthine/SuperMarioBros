@@ -7,6 +7,8 @@ class Application
 public:
 	Application();
 
+	virtual ~Application();
+
 	void run();
 	void manageEvents();
 	void update();

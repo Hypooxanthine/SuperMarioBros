@@ -3,6 +3,12 @@
 Application::Application()
 	: window(MakeRef<sf::RenderWindow>(sf::VideoMode(500, 500, 32), "Super Marios Bros."))
 {
+	LOG_INFO("Created Application.");
+}
+
+Application::~Application()
+{
+	LOG_INFO("Deleted Application.");
 }
 
 void Application::run()
