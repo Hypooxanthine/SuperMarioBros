@@ -2,6 +2,9 @@
 
 #include "../Core/Base.h"
 
+#include "../States/States.h"
+#include <stack>
+
 class Application
 {
 public:
@@ -23,5 +26,8 @@ private:
 	// Time managing
 	float dt = 0.f;
 	sf::Clock dtClock;
+
+	// States
+	std::stack<Ref<State>> states;
 };
 

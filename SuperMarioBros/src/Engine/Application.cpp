@@ -6,6 +6,8 @@ Application::Application()
 	Log::init();
 	window = MakeRef<sf::RenderWindow>(sf::VideoMode(256 * 4, 240 * 4, 32), "Super Marios Bros.", !sf::Style::Resize | !sf::Style::Fullscreen|sf::Style::Titlebar|sf::Style::Close);
 	LOG_TRACE("Created Application.");
+
+	states.push(MakeRef<GameState>(window));
 }
 
 Application::~Application()
@@ -35,7 +37,8 @@ void Application::manageEvents()
 
 void Application::update()
 {
-
+	if (!states.empty())
+		states.top()->update(dt);
 }
 
 void Application::render()
@@ -43,7 +46,8 @@ void Application::render()
 	window->clear();
 
 	//Render stuff here
-
+	if (!states.empty())
+		states.top()->render();
 
 	window->display();
 }
