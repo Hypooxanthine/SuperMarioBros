@@ -2,9 +2,11 @@
 
 int main()
 {
-	Application app;
+	Application* app = new Application();
 
-	app.run();
+	app->run();
+
+	delete app;
 
 	std::cin.get();
 

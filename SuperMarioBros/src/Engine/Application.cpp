@@ -1,14 +1,16 @@
 #include "Application.h"
 
 Application::Application()
-	: window(MakeRef<sf::RenderWindow>(sf::VideoMode(500, 500, 32), "Super Marios Bros."))
+	: window(nullptr), e(sf::Event())
 {
-	LOG_INFO("Created Application.");
+	Log::init();
+	window = MakeRef<sf::RenderWindow>(sf::VideoMode(256 * 4, 240 * 4, 32), "Super Marios Bros.", !sf::Style::Resize | !sf::Style::Fullscreen|sf::Style::Titlebar|sf::Style::Close);
+	LOG_TRACE("Created Application.");
 }
 
 Application::~Application()
 {
-	LOG_INFO("Deleted Application.");
+	LOG_TRACE("Deleted Application.");
 }
 
 void Application::run()

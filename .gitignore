@@ -33,7 +33,7 @@
 
 # Builds
 Intermediate/*
-out-x86/*
+out-Win32/*
 out-x64/*
 
 # Libraries
