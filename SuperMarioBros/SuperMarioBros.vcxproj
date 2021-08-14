@@ -167,8 +167,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Level\Tiles\Empty.cpp" />
     <ClCompile Include="src\Level\Tiles\Rock.cpp" />
     <ClCompile Include="src\Level\Level.cpp" />
+    <ClCompile Include="src\Level\Tiles\Tiles.cpp" />
     <ClCompile Include="src\States\GameState.cpp" />
     <ClCompile Include="src\Engine\Application.cpp" />
     <ClCompile Include="src\Core\Log.cpp" />
@@ -177,6 +179,7 @@
     <ClCompile Include="src\Level\Tiles\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Level\Tiles\Empty.h" />
     <ClInclude Include="src\Level\Tiles\Rock.h" />
     <ClInclude Include="src\Level\Level.h" />
     <ClInclude Include="src\Level\Tiles\Tiles.h" />

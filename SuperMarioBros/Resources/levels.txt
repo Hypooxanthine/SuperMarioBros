@@ -1,7 +1,6 @@
-# Maps have to satisfy the followings :
-# 
+1-1
+0 0 0 0 0 0 0 0 0 0 0 0
+1 1 1 1 1 1 1 1 1 1 1 1
 
-0 "1-1"
-START
-
-END
+"1-2"
+0 0 0 0 0 0 0 0 0 0 0 0

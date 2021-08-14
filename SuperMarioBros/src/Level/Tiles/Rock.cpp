@@ -1,3 +1,3 @@
 #include "Rock.h"
 
-TILE_INIT_IMP(Rock, 0, 0)
+TILE_INIT_IMP(Rock, 16, 0)

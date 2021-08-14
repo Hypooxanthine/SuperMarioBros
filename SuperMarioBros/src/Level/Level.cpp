@@ -1,6 +1,7 @@
 #include "Level.h"
 
 #include <fstream>
+#include <sstream>
 
 Level::Level(const size_t& width, const size_t& height, Ref<sf::RenderWindow> window)
 	: width(width), height(height), tiles(nullptr), window(window)
@@ -34,6 +35,32 @@ bool Level::load(const std::string& level)
 	{
 		LOG_INFO("Loaded \"" + path + "\" successfully.");
 
+		//TODO : handling comment lines in levels.txt
+
+		std::string line;
+		while (std::getline(maps, line))
+		{
+			if (line.find(level)) //Level header found
+			{
+				LOG_INFO("Level " + level + " found.");
+				while (true)
+				{
+					parseLine(line);
+
+					if (!std::getline(maps, line))
+						break;
+
+					if (line.length() == 0)
+						break;
+
+				}
+
+				LOG_INFO("Level loaded.");
+
+				break;
+			}
+		}
+
 		maps.close();
 
 		return true;
@@ -44,6 +71,25 @@ bool Level::load(const std::string& level)
 
 		return false;
 	}
+}
+
+void Level::parseLine(const std::string& line)
+{
+	int tile = 0;
+	size_t i = 0;
+	std::stringstream liness(line);
+
+	while (liness >> tile)
+	{
+		std::cout << tile << " ";
+		setTile(i, height, *GenTile(TileType(tile)));
+
+		i++;
+	}
+
+	std::cout << "\n";
+
+	height++;
 }
 
 void Level::render()

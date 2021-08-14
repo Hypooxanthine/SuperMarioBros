@@ -5,9 +5,9 @@ GameState::GameState(Ref<sf::RenderWindow> window)
 {
 	LOG_TRACE("Constructed GameState.");
 
-	if (!load("1-1"))
-	{
-		//TODO : handle level loading error.
+	if(!level->load("1-1"))
+	{ 
+		//TODO : handling loading error
 	}
 }
 

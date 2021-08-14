@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <functional>
+#include <optional>
 
 /* SFML graphic component. */
 #include <SFML/Graphics.hpp>

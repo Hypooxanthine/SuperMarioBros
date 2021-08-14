@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Core/Base.h"
-#include "Tiles/Tile.h"
+#include "Tiles/Tiles.h"
 
 class Level
 {
@@ -13,6 +13,7 @@ public:
 	void setTile(const size_t& x, const size_t& y, Tile&& tile);
 
 	bool load(const std::string& level);
+	void parseLine(const std::string& line);
 
 	void render();
 

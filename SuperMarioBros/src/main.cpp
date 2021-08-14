@@ -9,17 +9,11 @@ int main()
 
 	Log::init();
 	
-	#if 1
 	Application* app = new Application();
 
 	app->run();
 
 	delete app;
-	#endif
-
-	#ifdef _DEBUG
-	std::cin.get();
-	#endif
 
 	return 0;
 }

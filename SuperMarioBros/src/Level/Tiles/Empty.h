@@ -2,10 +2,10 @@
 
 #include "Tile.h"
 
-class Rock : public Tile
+class Empty : public Tile
 {
 	TILE_INIT_DEF
 public:
-	Rock() : Tile(true) {}
+	Empty() : Tile(false) {}
 };
 
