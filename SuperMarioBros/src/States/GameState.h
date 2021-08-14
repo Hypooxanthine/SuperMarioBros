@@ -1,6 +1,7 @@
 #pragma once
 
 #include "State.h"
+#include "../Level/Level.h"
 
 class GameState : public State
 {
@@ -12,5 +13,6 @@ public:
 	virtual void render() override;
 
 private:
+	Ref<Level> level;
 };
 
