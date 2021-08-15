@@ -3,12 +3,13 @@
 GameState::GameState(Ref<sf::RenderWindow> window)
 	: State(window), level(MakeRef<Level>(window))
 {
-	LOG_TRACE("Constructed GameState.");
 
 	if(!level->load("1-1"))
 	{ 
 		//TODO : handling loading error
 	}
+
+	LOG_TRACE("Constructed GameState.");
 }
 
 GameState::~GameState()

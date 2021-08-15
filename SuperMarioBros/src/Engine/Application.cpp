@@ -7,6 +7,8 @@ Application::Application()
 	LOG_TRACE("Created Application.");
 
 	states.push(MakeRef<GameState>(window));
+
+	window->setView(sf::View(sf::FloatRect(0.f, (float)(16 * 4 * 15), (float)(256 * 4), (float)(240 * 4))));
 }
 
 Application::~Application()

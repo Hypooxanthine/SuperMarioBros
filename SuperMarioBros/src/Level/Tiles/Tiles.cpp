@@ -1,16 +1,16 @@
 #include "Tiles.h"
 
-Ref<Tile> GenTile(const TileType& type)
+Tile* GenTile(const TileType& type)
 {
-	Ref<Tile> out = nullptr;
+	Tile* out = nullptr;
 
 	switch (type)
 	{
 	case TileType::Empty:
-		out = MakeRef<Empty>();
+		out = new Empty();
 		break;
 	case TileType::Rock:
-		out = MakeRef<Rock>();
+		out = new Rock();
 		break;
 	default:
 		break;

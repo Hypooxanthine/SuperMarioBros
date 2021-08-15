@@ -9,8 +9,9 @@ public:
 	Level(const size_t& width, const size_t& height, Ref<sf::RenderWindow> window);
 	Level(Ref<sf::RenderWindow> window);
 
-	void setTile(const size_t& x, const size_t& y, const Tile& tile);
-	void setTile(const size_t& x, const size_t& y, Tile&& tile);
+	void setTile(const size_t& x, const size_t& y, Tile* tile);
+
+	const Tile& getTile(const size_t& x, const size_t& y) const;
 
 	bool load(const std::string& level);
 	void parseLine(const std::string& line);
@@ -19,7 +20,7 @@ public:
 
 private:
 	size_t width, height;
-	Tile* tiles;
+	std::vector<Tile*> tiles;
 
 	Ref<sf::RenderWindow> window;
 };

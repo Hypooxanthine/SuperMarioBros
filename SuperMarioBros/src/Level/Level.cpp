@@ -4,7 +4,7 @@
 #include <sstream>
 
 Level::Level(const size_t& width, const size_t& height, Ref<sf::RenderWindow> window)
-	: width(width), height(height), tiles(nullptr), window(window)
+	: width(width), height(height), window(window)
 {}
 
 Level::Level(Ref<sf::RenderWindow> window)
@@ -12,16 +12,15 @@ Level::Level(Ref<sf::RenderWindow> window)
 {
 }
 
-void Level::setTile(const size_t& x, const size_t& y, const Tile& tile)
+void Level::setTile(const size_t& x, const size_t& y, Tile* tile)
 {
 	if(x < width && y < height)
 		tiles[y * width + x] = tile;
 }
 
-void Level::setTile(const size_t& x, const size_t& y, Tile&& tile)
+const Tile& Level::getTile(const size_t& x, const size_t& y) const
 {
-	if (x < width && y < height)
-		tiles[y * width + x] = tile;
+	return *tiles[y * width + x];
 }
 
 bool Level::load(const std::string& level)
@@ -43,6 +42,14 @@ bool Level::load(const std::string& level)
 			if (line.find(level)) //Level header found
 			{
 				LOG_INFO("Level " + level + " found.");
+
+				std::stringstream size(line);
+				size >> width >> height;
+				LOG_TRACE("width : {}, height : {}", width, height);
+				tiles.reserve(width * height);
+
+				std::getline(maps, line);
+
 				while (true)
 				{
 					parseLine(line);
@@ -82,16 +89,22 @@ void Level::parseLine(const std::string& line)
 	while (liness >> tile)
 	{
 		std::cout << tile << " ";
-		setTile(i, height, *GenTile(TileType(tile)));
+		tiles.push_back(GenTile(TileType(tile)));
 
 		i++;
 	}
 
 	std::cout << "\n";
-
-	height++;
 }
 
 void Level::render()
 {
+	for (size_t y = 0; y < height; y++)
+	{
+		for (size_t x = 0; x < width; x++)
+		{
+			getTile(x, y).getSprite().setPosition(sf::Vector2f((float)(x * 16 * 4), (float)(y * 16 * 4)));
+			window->draw(getTile(x, y).getSprite());
+		}
+	}
 }

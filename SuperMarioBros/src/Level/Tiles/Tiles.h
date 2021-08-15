@@ -12,4 +12,4 @@ enum class TileType
 	Stone = 2,
 };
 
-Ref<Tile> GenTile(const TileType& type);
+Tile* GenTile(const TileType& type);

@@ -21,6 +21,7 @@ sf::Texture& Tile::getSpriteSheet()
 
 	if (!initialized)
 	{
+		LOG_TRACE("Loading spritesheet.");
 		spriteSheet.loadFromFile("Resources/spritesheet.png");
 		initialized = true;
 	}
