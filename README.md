@@ -1,22 +1,22 @@
-## SuperMarioBros
+# SuperMarioBros
 
-# Description
+## Description
 
 Yet another Super Mario Bros. (NES) clone.
 This is a side project I created to improve my C++.
 
 
-# Libraries
+## Libraries
 
 SFML, spdlog.
 
 
-# Compatibilities
+## Compatibilities
 
 x86, x64.
 
 
-# How to make it run on your local repo :
+## How to make it run on your local repo :
 
 Clone the repo on your the remote machine. Then download the followings :
 - SFML x64 : https://www.sfml-dev.org/files/SFML-2.5.1-windows-vc15-64-bit.zip
