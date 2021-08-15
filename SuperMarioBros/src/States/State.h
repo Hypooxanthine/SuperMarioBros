@@ -10,6 +10,7 @@ public:
 
 	virtual void update(const float& dt) = 0;
 	virtual void render() = 0;
+	virtual void init() = 0;
 
 protected:
 	Ref<sf::RenderWindow> window;

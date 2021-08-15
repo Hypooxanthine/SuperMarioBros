@@ -4,11 +4,11 @@ Application::Application()
 	: window(nullptr), e(sf::Event())
 {
 	window = MakeRef<sf::RenderWindow>(sf::VideoMode(256 * 4, 240 * 4, 32), "Super Marios Bros.", !sf::Style::Resize | !sf::Style::Fullscreen|sf::Style::Titlebar|sf::Style::Close);
+	window->setView(sf::View(sf::FloatRect(0.f, (float)(16 * 4 * 15), (float)(256 * 4), (float)(240 * 4))));
 	LOG_TRACE("Created Application.");
 
-	states.push(MakeRef<GameState>(window));
-
-	window->setView(sf::View(sf::FloatRect(0.f, (float)(16 * 4 * 15), (float)(256 * 4), (float)(240 * 4))));
+	states.push(MakeRef<EditorState>(window));
+	states.top()->init();
 }
 
 Application::~Application()

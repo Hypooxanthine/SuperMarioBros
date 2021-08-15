@@ -3,15 +3,17 @@
 #include "State.h"
 #include "../Level/Level.h"
 
-class GameState : public State
+class EditorState : public State
 {
 public:
-	GameState(Ref<sf::RenderWindow> window);
-	virtual ~GameState();
+	EditorState(Ref<sf::RenderWindow> window);
+	virtual ~EditorState();
 
+	virtual void init() override;
 	virtual void update(const float& dt) override;
 	virtual void render() override;
-	virtual void init() override;
+
+	void openLevel();
 
 private:
 	Ref<Level> level;

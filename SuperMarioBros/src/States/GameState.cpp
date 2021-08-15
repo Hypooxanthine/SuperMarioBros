@@ -18,9 +18,15 @@ GameState::~GameState()
 
 void GameState::update(const float& dt)
 {
+
 }
 
 void GameState::render()
 {
-	level->render();
+	if(level->isLoaded())
+		level->render();
+}
+
+void GameState::init()
+{
 }

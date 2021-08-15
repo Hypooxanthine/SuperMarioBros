@@ -167,6 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\States\EditorState.cpp" />
     <ClCompile Include="src\Level\Tiles\Empty.cpp" />
     <ClCompile Include="src\Level\Tiles\Rock.cpp" />
     <ClCompile Include="src\Level\Level.cpp" />
@@ -177,8 +178,10 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\States\State.cpp" />
     <ClCompile Include="src\Level\Tiles\Tile.cpp" />
+    <ClCompile Include="src\Util\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\States\EditorState.h" />
     <ClInclude Include="src\Level\Tiles\Empty.h" />
     <ClInclude Include="src\Level\Tiles\Rock.h" />
     <ClInclude Include="src\Level\Level.h" />
@@ -190,6 +193,7 @@
     <ClInclude Include="src\States\State.h" />
     <ClInclude Include="src\States\States.h" />
     <ClInclude Include="src\Level\Tiles\Tile.h" />
+    <ClInclude Include="src\Util\Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

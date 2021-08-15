@@ -6,7 +6,6 @@
 class Level
 {
 public:
-	Level(const size_t& width, const size_t& height, Ref<sf::RenderWindow> window);
 	Level(Ref<sf::RenderWindow> window);
 
 	void setTile(const size_t& x, const size_t& y, Tile* tile);
@@ -14,11 +13,18 @@ public:
 	const Tile& getTile(const size_t& x, const size_t& y) const;
 
 	bool load(const std::string& level);
+	static std::vector<std::string> getLevelsList();
 	void parseLine(const std::string& line);
+
+	inline const bool& isLoaded() { return loaded; }
 
 	void render();
 
 private:
+	static inline const std::string path = "Resources/levels.txt";
+
+	bool loaded;
+
 	size_t width, height;
 	std::vector<Tile*> tiles;
 

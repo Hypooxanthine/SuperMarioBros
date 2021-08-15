@@ -3,14 +3,9 @@
 #include <fstream>
 #include <sstream>
 
-Level::Level(const size_t& width, const size_t& height, Ref<sf::RenderWindow> window)
-	: width(width), height(height), window(window)
-{}
-
 Level::Level(Ref<sf::RenderWindow> window)
-	: Level(0, 0, window)
-{
-}
+	: width(width), height(height), window(window), loaded(false)
+{}
 
 void Level::setTile(const size_t& x, const size_t& y, Tile* tile)
 {
@@ -25,8 +20,6 @@ const Tile& Level::getTile(const size_t& x, const size_t& y) const
 
 bool Level::load(const std::string& level)
 {
-	static std::string path = "Resources/levels.txt";
-
 	std::ifstream maps;
 	maps.open(path);
 
@@ -39,29 +32,25 @@ bool Level::load(const std::string& level)
 		std::string line;
 		while (std::getline(maps, line))
 		{
-			if (line.find(level)) //Level header found
+			if (line.find(level) != std::string::npos) //Level header found
 			{
 				LOG_INFO("Level " + level + " found.");
 
+				std::getline(maps, line);
 				std::stringstream size(line);
 				size >> width >> height;
 				LOG_TRACE("width : {}, height : {}", width, height);
 				tiles.reserve(width * height);
 
-				std::getline(maps, line);
-
-				while (true)
+				while (std::getline(maps, line))
 				{
-					parseLine(line);
-
-					if (!std::getline(maps, line))
-						break;
-
 					if (line.length() == 0)
 						break;
 
+					parseLine(line);
 				}
 
+				loaded = true;
 				LOG_INFO("Level loaded.");
 
 				break;
@@ -78,6 +67,38 @@ bool Level::load(const std::string& level)
 
 		return false;
 	}
+}
+
+std::vector<std::string> Level::getLevelsList()
+{
+	std::vector<std::string> out;
+
+	std::ifstream maps;
+	maps.open(path);
+
+	if (maps.is_open())
+	{
+		LOG_INFO("Loaded \"" + path + "\" successfully.");
+
+		//TODO : handling comment lines in levels.txt
+
+		std::string line;
+		while (std::getline(maps, line))
+		{
+			if (line.find("name") != std::string::npos) //Level name line found
+			{
+				out.push_back(line.substr(5));
+			}
+		}
+
+		maps.close();
+	}
+	else
+	{
+		LOG_ERROR("Unable to open \"" + path + "\"");
+	}
+
+	return out;
 }
 
 void Level::parseLine(const std::string& line)
