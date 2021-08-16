@@ -4,8 +4,6 @@
 
 class Rock : public Tile
 {
-	TILE_INIT_DEF
-public:
-	Rock() : Tile(true) {}
+	TILE_INIT_DEF(Rock)
 };
 

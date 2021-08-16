@@ -4,8 +4,6 @@
 
 class Empty : public Tile
 {
-	TILE_INIT_DEF
-public:
-	Empty() : Tile(false) {}
+	TILE_INIT_DEF(Empty)
 };
 

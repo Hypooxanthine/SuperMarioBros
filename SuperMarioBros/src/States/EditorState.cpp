@@ -3,7 +3,7 @@
 #include "../Util/Util.h"
 
 EditorState::EditorState(Ref<sf::RenderWindow> window)
-	: State(window), level(MakeRef<Level>(window))
+	: State(window), level(MakeRef<Level>(window)), cursorTile(nullptr), activeTile(nullptr)
 {
 }
 
@@ -34,6 +34,39 @@ void EditorState::init()
 
 void EditorState::update(const float& dt)
 {
+	static size_t xPos = 0, yPos = 0, xPosOld = 0, yPosOld = 0;
+	static const auto& view = window->getView();
+
+	xPosOld = xPos;
+	yPosOld = yPos;
+
+	const auto& mousePos = sf::Mouse::getPosition(*window);
+
+	xPos = size_t((view.getCenter().x + mousePos.x - view.getSize().x / 2.f) / (16 * 4));
+	yPos = size_t((view.getCenter().y + mousePos.y - view.getSize().y / 2.f) / (16 * 4));
+
+	if (xPos != xPosOld || yPos != yPosOld)
+	{
+		if (cursorTile)
+			cursorTile->setHighlight(false);
+
+		cursorTile = &level->getTile(xPos, yPos);
+		
+		if (cursorTile)
+			cursorTile->setHighlight(true);
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		moveView(sf::Vector2f(-64.f * 3 * dt, 0));
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		moveView(sf::Vector2f(64.f * 3 * dt, 0));
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		moveView(sf::Vector2f(0.f, 64.f * 3 * dt));
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		moveView(sf::Vector2f(0.f, -64.f * 3 * dt));
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		level->setTile(xPos, yPos, GenTile(TileType::Rock, window));
 }
 
 void EditorState::render()
@@ -59,4 +92,10 @@ void EditorState::openLevel()
 
 		level->load(levels[in - 1]);
 	}
+}
+
+void EditorState::moveView(const sf::Vector2f& delta)
+{
+	static const auto& view = window->getView();
+	window->setView(sf::View(view.getCenter() + delta, view.getSize()));
 }

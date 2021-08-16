@@ -12,4 +12,4 @@ enum class TileType
 	Stone = 2,
 };
 
-Tile* GenTile(const TileType& type);
+Tile* GenTile(const TileType& type, Ref<sf::RenderWindow> window);

@@ -1,18 +1,31 @@
 #include "Tile.h"
 
-Tile::Tile(const bool& solid, const sf::Vector2i& position)
-	: Tile(solid)
+Tile::Tile(Ref<sf::RenderWindow> window)
+	: window(window), highlight(false), solid(false)
+{}
+
+void Tile::render() const
 {
-	setPosition(position);
+	static sf::RectangleShape frame;
+	static bool initialized = false;
+
+	if (!initialized)
+	{
+		static float thickness = 4.f;
+		frame.setSize(sf::Vector2f((float)(16 * 4), (float)(16 * 4)));
+		frame.setOutlineThickness(-thickness);
+		frame.setOutlineColor(sf::Color::Magenta);
+		frame.setFillColor(sf::Color::Transparent);
+
+		initialized = true;
+	}
+
+	getSprite().setPosition(position);
+	frame.setPosition(position);
+	window->draw(getSprite());
+	if (highlight)
+		window->draw(frame);
 }
-
-Tile::Tile(const bool& solid)
-	: solid(solid)
-{}
-
-Tile::Tile()
-	: Tile(false)
-{}
 
 sf::Texture& Tile::getSpriteSheet()
 {
@@ -27,9 +40,4 @@ sf::Texture& Tile::getSpriteSheet()
 	}
 
 	return spriteSheet;
-}
-
-void Tile::setPosition(const sf::Vector2i& position)
-{
-	this->position = sf::Vector2f(float(position.x * 16), float(position.y * 16));
 }

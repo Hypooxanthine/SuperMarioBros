@@ -28,11 +28,6 @@ void fillMap()
 
 int main()
 {
-	#ifndef _DEBUG
-	HWND hWnd = GetConsoleWindow();
-	ShowWindow(hWnd, SW_HIDE);
-	#endif
-
 	//fillMap();
 
 	Log::init();

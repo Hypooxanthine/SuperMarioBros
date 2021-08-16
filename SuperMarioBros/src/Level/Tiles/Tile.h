@@ -2,9 +2,10 @@
 
 #include "../../Core/Base.h"
 
-#define TILE_INIT_DEF \
+#define TILE_INIT_DEF(tile) \
 public:\
 	virtual sf::Sprite& getSprite() const override;\
+	tile(Ref<sf::RenderWindow> window) : Tile(window) {}\
 private:\
 	static sf::Sprite sprite;
 
@@ -29,22 +30,26 @@ sf::Sprite& tile::getSprite() const\
 class Tile
 {
 public:
-	Tile(const bool& solid, const sf::Vector2i& position);
-	Tile(const bool& solid);
-	Tile();
+	Tile(Ref<sf::RenderWindow> window);
+
+	inline void setHighlight(const bool& highlight) { this->highlight = highlight; }
+	void render() const;
 
 	//Getters
 	inline bool isSolid() { return solid; }
 	static sf::Texture& getSpriteSheet();
 	virtual sf::Sprite& getSprite() const = 0;
+	sf::RectangleShape& getFrame() const;
 
 	//Setter
 	inline void setSolid(const bool& value) { solid = value; }
-	void setPosition(const sf::Vector2i& position);
+	inline void setPosition(const sf::Vector2f& position) { this->position = position; }
 
 	//Operators
 
 protected:
+	Ref<sf::RenderWindow> window;
+	bool highlight;
 	bool solid;
 
 	sf::Vector2f position;

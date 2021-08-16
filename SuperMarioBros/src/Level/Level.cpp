@@ -4,18 +4,38 @@
 #include <sstream>
 
 Level::Level(Ref<sf::RenderWindow> window)
-	: width(width), height(height), window(window), loaded(false)
+	: width(0), height(0), window(window), loaded(false)
 {}
+
+Level::~Level()
+{
+	for (Tile* t : tiles)
+		delete t;
+}
 
 void Level::setTile(const size_t& x, const size_t& y, Tile* tile)
 {
-	if(x < width && y < height)
+	if (x < width && y < height)
+	{
+		delete tiles[y * width + x];
+		tile->setPosition(sf::Vector2f((float)(x * 16 * 4), (float)(y * 16 * 4)));
 		tiles[y * width + x] = tile;
+	}
 }
 
-const Tile& Level::getTile(const size_t& x, const size_t& y) const
+Tile& Level::getTile(const size_t& x, const size_t& y) const
 {
-	return *tiles[y * width + x];
+	if (x < width && y < height)
+		return *tiles[y * width + x];
+	else
+	{
+		if (x > width && y < height)
+			return getTile(width - 1, y);
+		else if (x > width && y > height)
+			return getTile(width - 1, height - 1);
+		else
+			return getTile(x, y - 1);
+	}
 }
 
 bool Level::load(const std::string& level)
@@ -35,6 +55,7 @@ bool Level::load(const std::string& level)
 			if (line.find(level) != std::string::npos) //Level header found
 			{
 				LOG_INFO("Level " + level + " found.");
+				name = level;
 
 				std::getline(maps, line);
 				std::stringstream size(line);
@@ -110,7 +131,9 @@ void Level::parseLine(const std::string& line)
 	while (liness >> tile)
 	{
 		std::cout << tile << " ";
-		tiles.push_back(GenTile(TileType(tile)));
+		Tile* t = GenTile(TileType(tile), window);
+		t->setPosition(sf::Vector2f((float)(i * 16 * 4), (float)((tiles.size() + 1 - i) / width * 16 * 4)));
+		tiles.push_back(t);
 
 		i++;
 	}
@@ -120,12 +143,41 @@ void Level::parseLine(const std::string& line)
 
 void Level::render()
 {
-	for (size_t y = 0; y < height; y++)
+	// Rendering optimization
+	size_t minX = 0, maxX = width, minY = 0, maxY = height;
+
+	const auto& view = window->getView();
+
+	minX = int((view.getCenter().x - view.getSize().x / 2) / (16 * 4));
+	maxX = int((view.getCenter().x + view.getSize().x / 2) / (16 * 4));
+	minY = int((view.getCenter().y - view.getSize().y / 2) / (16 * 4));
+	maxY = int((view.getCenter().y + view.getSize().y / 2) / (16 * 4));
+
+	if (maxX < width)
+		maxX++;
+	if (maxY < height)
+		maxY++;
+
+	if (maxX > width)
+		maxX = width;
+	if (maxY > height)
+		maxY = height;
+
+	for (size_t y = minY; y < maxY; y++)
 	{
-		for (size_t x = 0; x < width; x++)
+		for (size_t x = minX; x < maxX; x++)
 		{
-			getTile(x, y).getSprite().setPosition(sf::Vector2f((float)(x * 16 * 4), (float)(y * 16 * 4)));
-			window->draw(getTile(x, y).getSprite());
+			getTile(x, y).render();
 		}
 	}
+}
+
+void Level::highlight(const size_t& x, const size_t& y)
+{
+	getTile(x, y).setHighlight(true);
+}
+
+void Level::stopHighlight(const size_t& x, const size_t& y)
+{
+	getTile(x, y).setHighlight(false);
 }

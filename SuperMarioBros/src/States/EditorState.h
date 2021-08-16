@@ -15,7 +15,11 @@ public:
 
 	void openLevel();
 
+	void moveView(const sf::Vector2f& delta);
+
 private:
 	Ref<Level> level;
+	Tile* cursorTile;
+	Tile* activeTile;
 };
 
