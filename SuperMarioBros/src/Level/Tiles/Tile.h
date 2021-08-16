@@ -6,6 +6,7 @@
 public:\
 	virtual sf::Sprite& getSprite() const override;\
 	tile(Ref<sf::RenderWindow> window) : Tile(window) {}\
+	virtual TileType& getType() override { static TileType type = TileType::tile; return type; }\
 private:\
 	static sf::Sprite sprite;
 
@@ -27,6 +28,14 @@ sf::Sprite& tile::getSprite() const\
 	return sprite;\
 }
 
+enum class TileType
+{
+	Empty = 0,
+
+	Rock = 1,
+	Stone = 2,
+};
+
 class Tile
 {
 public:
@@ -40,6 +49,7 @@ public:
 	static sf::Texture& getSpriteSheet();
 	virtual sf::Sprite& getSprite() const = 0;
 	sf::RectangleShape& getFrame() const;
+	virtual TileType& getType() = 0;
 
 	//Setter
 	inline void setSolid(const bool& value) { solid = value; }

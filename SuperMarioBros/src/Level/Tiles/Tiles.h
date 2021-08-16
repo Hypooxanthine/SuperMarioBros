@@ -4,12 +4,4 @@
 #include "Rock.h"
 #include "Empty.h"
 
-enum class TileType
-{
-	Empty = 0,
-
-	Rock = 1,
-	Stone = 2,
-};
-
 Tile* GenTile(const TileType& type, Ref<sf::RenderWindow> window);

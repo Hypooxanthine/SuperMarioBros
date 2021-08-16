@@ -12,9 +12,12 @@ public:
 	void setTile(const size_t& x, const size_t& y, Tile* tile);
 
 	Tile& getTile(const size_t& x, const size_t& y) const;
+	inline size_t getWidth() { return width; }
+	inline size_t getHeight() { return height; }
 
 	bool load(const std::string& level);
 	static std::vector<std::string> getLevelsList();
+	bool save() const;
 
 	inline const bool& isLoaded() { return loaded; }
 
@@ -25,8 +28,11 @@ public:
 
 private:
 	void parseLine(const std::string& line);
+	std::string getLine(const size_t& line) const;
+	void writeLevel(std::ofstream& file) const;
 
-	static inline const std::string path = "Resources/levels.txt";
+	static inline const std::string pathIn = "Resources\\levels.txt";
+	static inline const std::string pathOut = "Resources\\temp.txt";
 
 	bool loaded;
 

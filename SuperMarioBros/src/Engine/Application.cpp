@@ -41,7 +41,7 @@ void Application::update()
 	if (!states.empty())
 		states.top()->update(dt);
 
-	LOG_INFO("FPS : {}", 1.f / dt);
+	//LOG_INFO("FPS : {}", 1.f / dt);
 }
 
 void Application::render()

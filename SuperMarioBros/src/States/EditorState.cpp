@@ -9,6 +9,7 @@ EditorState::EditorState(Ref<sf::RenderWindow> window)
 
 EditorState::~EditorState()
 {
+	level->save();
 }
 
 void EditorState::init()
@@ -45,7 +46,7 @@ void EditorState::update(const float& dt)
 	xPos = size_t((view.getCenter().x + mousePos.x - view.getSize().x / 2.f) / (16 * 4));
 	yPos = size_t((view.getCenter().y + mousePos.y - view.getSize().y / 2.f) / (16 * 4));
 
-	if (xPos != xPosOld || yPos != yPosOld)
+	if ((xPos != xPosOld || yPos != yPosOld) && xPos < level->getWidth() && yPos < level->getHeight())
 	{
 		if (cursorTile)
 			cursorTile->setHighlight(false);
@@ -56,17 +57,21 @@ void EditorState::update(const float& dt)
 			cursorTile->setHighlight(true);
 	}
 
+	float tilesPerSecond = 15.f * 16.f * 4.f;
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		moveView(sf::Vector2f(-64.f * 3 * dt, 0));
+		moveView(sf::Vector2f(-tilesPerSecond * dt, 0));
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		moveView(sf::Vector2f(64.f * 3 * dt, 0));
+		moveView(sf::Vector2f(tilesPerSecond * dt, 0));
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		moveView(sf::Vector2f(0.f, 64.f * 3 * dt));
+		moveView(sf::Vector2f(0.f, tilesPerSecond * dt));
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		moveView(sf::Vector2f(0.f, -64.f * 3 * dt));
+		moveView(sf::Vector2f(0.f, -tilesPerSecond * dt));
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		level->setTile(xPos, yPos, GenTile(TileType::Rock, window));
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		level->setTile(xPos, yPos, GenTile(TileType::Empty, window));
 }
 
 void EditorState::render()
@@ -97,5 +102,19 @@ void EditorState::openLevel()
 void EditorState::moveView(const sf::Vector2f& delta)
 {
 	static const auto& view = window->getView();
-	window->setView(sf::View(view.getCenter() + delta, view.getSize()));
+	sf::View newView = sf::View(view.getCenter() + delta, view.getSize());
+	const auto& center = newView.getCenter();
+	const auto& size = newView.getSize();
+
+	//Clamping view to borders of the level
+	if (center.x - size.x / 2.f < 0)
+		newView.setCenter(sf::Vector2f(size.x / 2.f, center.y));
+	if (center.y - size.y / 2.f < 0)
+		newView.setCenter(sf::Vector2f(center.x, size.y / 2.f));
+	if (center.x + size.x / 2.f > level->getWidth() * 16.f * 4.f)
+		newView.setCenter(sf::Vector2f(level->getWidth() * 16.f * 4.f - size.x / 2.f, center.y));
+	if (center.y + size.y / 2.f > level->getHeight() * 16.f * 4.f)
+		newView.setCenter(sf::Vector2f(center.x, level->getHeight() * 16.f * 4.f - size.y / 2.f));
+
+	window->setView(newView);
 }

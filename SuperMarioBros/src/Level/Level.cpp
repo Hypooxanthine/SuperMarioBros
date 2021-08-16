@@ -41,11 +41,11 @@ Tile& Level::getTile(const size_t& x, const size_t& y) const
 bool Level::load(const std::string& level)
 {
 	std::ifstream maps;
-	maps.open(path);
+	maps.open(pathIn);
 
 	if (maps.is_open())
 	{
-		LOG_INFO("Loaded \"" + path + "\" successfully.");
+		LOG_INFO("Loaded \"" + pathIn + "\" successfully.");
 
 		//TODO : handling comment lines in levels.txt
 
@@ -84,7 +84,7 @@ bool Level::load(const std::string& level)
 	}
 	else
 	{
-		LOG_ERROR("Unable to open \"" + path + "\"");
+		LOG_ERROR("Unable to open \"" + pathIn + "\"");
 
 		return false;
 	}
@@ -95,11 +95,11 @@ std::vector<std::string> Level::getLevelsList()
 	std::vector<std::string> out;
 
 	std::ifstream maps;
-	maps.open(path);
+	maps.open(pathIn);
 
 	if (maps.is_open())
 	{
-		LOG_INFO("Loaded \"" + path + "\" successfully.");
+		LOG_INFO("Loaded \"" + pathIn + "\" successfully.");
 
 		//TODO : handling comment lines in levels.txt
 
@@ -116,10 +116,71 @@ std::vector<std::string> Level::getLevelsList()
 	}
 	else
 	{
-		LOG_ERROR("Unable to open \"" + path + "\"");
+		LOG_ERROR("Unable to open \"" + pathIn + "\"");
 	}
 
 	return out;
+}
+
+bool Level::save() const
+{
+	std::fstream maps;
+	std::ofstream temp; //Temporary file that will be the new save file at the end
+	maps.open(pathIn);
+
+	if (maps.is_open())
+	{
+		LOG_INFO("{} opened successfuly.", pathIn);
+
+		temp.open(pathOut, std::fstream::out); //Creating the temporary file
+
+		std::string line;
+
+		while (std::getline(maps, line)) //Copying all lines...
+		{
+
+			if (line.find(name) != std::string::npos) //Until we find the level name
+			{
+				writeLevel(temp); //Writing level data
+				break;
+			}
+			
+			temp << line << "\n";
+		}
+
+		if (maps.peek() == -1)
+		{
+			LOG_INFO("{} has not been found to be rewritten. Creating data...", name);
+
+			writeLevel(temp);
+		}
+
+		while (std::getline(maps, line)) //We skip all the previous level data
+		{
+			if (line == "")
+			{
+				temp << line;
+				break;
+			}
+		}
+
+		temp << "\n";
+
+		while (std::getline(maps, line)) //We can copy the remaining lines
+			temp << line << "\n";
+
+		temp.close();
+		maps.close();
+
+		std::remove(pathIn.data());
+		std::rename(pathOut.data(), pathIn.data());
+		std::remove(pathOut.data());
+
+		LOG_INFO("Level {} saved.", name);
+		return true;
+	}
+	else
+		return false;
 }
 
 void Level::parseLine(const std::string& line)
@@ -139,6 +200,27 @@ void Level::parseLine(const std::string& line)
 	}
 
 	std::cout << "\n";
+}
+
+std::string Level::getLine(const size_t& line) const
+{
+	std::string out = "";
+
+	for (size_t i = 0; i < width; i++)
+		out += " " + std::to_string((int)tiles[width * line + i]->getType());
+
+	out += "\n";
+
+	return out;
+}
+
+void Level::writeLevel(std::ofstream& file) const
+{
+	file << "name " << name << "\n";
+	file << width << " " << height << "\n";
+
+	for (size_t i = 0; i < height; i++)
+		file << getLine(i);
 }
 
 void Level::render()
