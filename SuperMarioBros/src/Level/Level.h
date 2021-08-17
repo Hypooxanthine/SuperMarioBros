@@ -9,9 +9,9 @@ public:
 	Level(Ref<sf::RenderWindow> window);
 	virtual ~Level();
 
-	void setTile(const size_t& x, const size_t& y, Tile* tile);
+	void setTile(const size_t& x, const size_t& y, Ref<Tile> tile);
 
-	Tile& getTile(const size_t& x, const size_t& y) const;
+	Ref<Tile> getTile(const size_t& x, const size_t& y) const;
 	inline size_t getWidth() { return width; }
 	inline size_t getHeight() { return height; }
 
@@ -38,7 +38,7 @@ private:
 
 	std::string name;
 	size_t width, height;
-	std::vector<Tile*> tiles;
+	std::vector<Ref<Tile>> tiles;
 
 	Ref<sf::RenderWindow> window;
 };

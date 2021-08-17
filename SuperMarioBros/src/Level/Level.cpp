@@ -8,25 +8,21 @@ Level::Level(Ref<sf::RenderWindow> window)
 {}
 
 Level::~Level()
-{
-	for (Tile* t : tiles)
-		delete t;
-}
+{}
 
-void Level::setTile(const size_t& x, const size_t& y, Tile* tile)
+void Level::setTile(const size_t& x, const size_t& y, Ref<Tile> tile)
 {
 	if (x < width && y < height)
 	{
-		delete tiles[y * width + x];
 		tile->setPosition(sf::Vector2f((float)(x * 16 * 4), (float)(y * 16 * 4)));
 		tiles[y * width + x] = tile;
 	}
 }
 
-Tile& Level::getTile(const size_t& x, const size_t& y) const
+Ref<Tile> Level::getTile(const size_t& x, const size_t& y) const
 {
 	if (x < width && y < height)
-		return *tiles[y * width + x];
+		return tiles[y * width + x];
 	else
 	{
 		if (x > width && y < height)
@@ -192,7 +188,7 @@ void Level::parseLine(const std::string& line)
 	while (liness >> tile)
 	{
 		std::cout << tile << " ";
-		Tile* t = GenTile(TileType(tile), window);
+		auto t = GenTile(TileType(tile), window);
 		t->setPosition(sf::Vector2f((float)(i * 16 * 4), (float)((tiles.size() + 1 - i) / width * 16 * 4)));
 		tiles.push_back(t);
 
@@ -249,17 +245,17 @@ void Level::render()
 	{
 		for (size_t x = minX; x < maxX; x++)
 		{
-			getTile(x, y).render();
+			getTile(x, y)->render();
 		}
 	}
 }
 
 void Level::highlight(const size_t& x, const size_t& y)
 {
-	getTile(x, y).setHighlight(true);
+	getTile(x, y)->setHighlight(true);
 }
 
 void Level::stopHighlight(const size_t& x, const size_t& y)
 {
-	getTile(x, y).setHighlight(false);
+	getTile(x, y)->setHighlight(false);
 }

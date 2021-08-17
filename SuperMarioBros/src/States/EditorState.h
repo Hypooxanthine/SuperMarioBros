@@ -17,9 +17,14 @@ public:
 
 	void moveView(const sf::Vector2f& delta);
 
+	template<class T>
+	bool belongsToView(const sf::Vector2<T>& point) const;
+
 private:
 	Ref<Level> level;
-	Tile* cursorTile;
-	Tile* activeTile;
+	Ref<Tile> cursorTile;
+	Ref<Tile> activeTile;
+
+	sf::View levelView;
 };
 

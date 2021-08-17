@@ -1,16 +1,16 @@
 #include "Tiles.h"
 
-Tile* GenTile(const TileType& type, Ref<sf::RenderWindow> window)
+Ref<Tile> GenTile(const TileType& type, Ref<sf::RenderWindow> window)
 {
-	Tile* out = nullptr;
+	Ref<Tile> out = nullptr;
 
 	switch (type)
 	{
 	case TileType::Empty:
-		out = new Empty(window);
+		out = MakeRef<Empty>(window);
 		break;
 	case TileType::Rock:
-		out = new Rock(window);
+		out = MakeRef<Rock>(window);
 		break;
 	default:
 		break;
