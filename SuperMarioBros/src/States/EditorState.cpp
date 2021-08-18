@@ -17,22 +17,7 @@ void EditorState::init()
 {
 	LOG_TRACE("Initialization of EditorState.");
 
-	std::cout << "What to do ?\n"
-		<< "    1. Open a level\n"
-		<< "    2. Create a level\n";
-	size_t in = getUserIntRange("Choice", 1, 2);
-
-	switch (in)
-	{
-	case 1:
-		openLevel();
-		break;
-	case 2:
-		createLevel();
-		break;
-	default:
-		break;
-	}
+	editorSelector();
 
 	window->setSize(sf::Vector2u((unsigned int)((float)window->getSize().x / 0.9f), window->getSize().y));
 	levelView.setViewport(sf::FloatRect(0.f, 0.f, 0.9f, 1.f));
@@ -113,6 +98,28 @@ void EditorState::render()
 	}
 }
 
+void EditorState::editorSelector()
+{
+	LOG_INFO("Entering the level editor selector.");
+
+	std::cout << "What to do ?\n"
+		<< "    1. Open a level\n"
+		<< "    2. Create a level\n";
+	size_t in = getUserIntRange("Choice", 1, 2);
+
+	switch (in)
+	{
+	case 1:
+		openLevel();
+		break;
+	case 2:
+		createLevel();
+		break;
+	default:
+		break;
+	}
+}
+
 void EditorState::openLevel()
 {
 	auto levels = Level::getLevelsList();
@@ -126,9 +133,19 @@ void EditorState::openLevel()
 			std::cout << "    " << i + 1 << ". " << levels[i] << "\n";
 		}
 
-		size_t in = getUserIntRange("Level to open", 1, levels.size());
+		std::cout << "    " << levels.size() + 1 << ". Back to previous menu.\n";
 
-		level->load(levels[in - 1]);
+		size_t in = getUserIntRange("Level to open", 1, levels.size() + 1);
+
+		if (in - 1 < levels.size())
+			level->load(levels[in - 1]);
+		else
+			editorSelector();
+	}
+	else
+	{
+		std::cout << "No level available. Please create one before opening it.\n";
+		editorSelector();
 	}
 }
 
@@ -146,12 +163,15 @@ void EditorState::createLevel()
 		for (const auto& name : level->getLevelsList())
 		{
 			if (name == levelName)
+			{
 				alreadyExists = true;
+				std::cout << "Level \"" << levelName << "\" already exists, please type another name.\n";
+			}
 		}
 	}
 
 	level->create(levelName);
-	level->load(levelName);
+	editorSelector();
 }
 
 void EditorState::moveView(const sf::Vector2f& delta)

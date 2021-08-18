@@ -13,6 +13,8 @@ public:
 	virtual void update(const float& dt) override;
 	virtual void render() override;
 
+	void editorSelector();
+
 	void openLevel();
 	void createLevel();
 
