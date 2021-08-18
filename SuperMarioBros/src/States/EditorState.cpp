@@ -33,14 +33,14 @@ void EditorState::init()
 		break;
 	}
 
-	window->setSize(sf::Vector2u(window->getSize().x / 0.9f, window->getSize().y));
+	window->setSize(sf::Vector2u((unsigned int)((float)window->getSize().x / 0.9f), window->getSize().y));
 	levelView.setViewport(sf::FloatRect(0.f, 0.f, 0.9f, 1.f));
 }
 
 void EditorState::update(const float& dt)
 {
 	static size_t xPos = 0, yPos = 0, xPosOld = 0, yPosOld = 0; //Static because we want these variables to last more than this scope. They are not member variables because they are not used anywhere else than here for now.
-	static const auto& view = window->getView(); //It is pointless to set this variable again and again because it can be a ref
+	static const auto& view = window->getView(); //It is pointless to set this variable again and again because it holds a ref
 
 	// Updating old mouse positions
 	xPosOld = xPos;
@@ -80,9 +80,19 @@ void EditorState::update(const float& dt)
 	if (belongsToView(mousePosWorld))
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			level->setTile(xPos, yPos, GenTile(TileType::Rock, window));
+		{
+			auto newTile = GenTile(TileType::Rock, window);
+			level->setTile(xPos, yPos, newTile);
+			cursorTile = newTile;
+			cursorTile->setHighlight(true);
+		}
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-			level->setTile(xPos, yPos, GenTile(TileType::Empty, window));
+		{
+			auto newTile = GenTile(TileType::Empty, window);
+			level->setTile(xPos, yPos, newTile);
+			cursorTile = newTile;
+			cursorTile->setHighlight(true);
+		}
 	}
 }
 

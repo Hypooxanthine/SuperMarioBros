@@ -4,6 +4,7 @@
 
 #define TILE_INIT_DEF(tile) \
 public:\
+	using Type = tile;\
 	virtual sf::Sprite& getSprite() const override;\
 	tile(Ref<sf::RenderWindow> window) : Tile(window) {}\
 	virtual TileType& getType() override { static TileType type = TileType::tile; return type; }\
@@ -39,6 +40,7 @@ enum class TileType
 class Tile
 {
 public:
+	using type = Tile;
 	Tile(Ref<sf::RenderWindow> window);
 
 	inline void setHighlight(const bool& highlight) { this->highlight = highlight; }
