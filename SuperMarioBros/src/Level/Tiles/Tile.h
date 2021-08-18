@@ -50,7 +50,6 @@ public:
 	inline bool isSolid() { return solid; }
 	static sf::Texture& getSpriteSheet();
 	virtual sf::Sprite& getSprite() const = 0;
-	sf::RectangleShape& getFrame() const;
 	virtual TileType& getType() = 0;
 
 	//Setter
