@@ -179,6 +179,40 @@ bool Level::save() const
 		return false;
 }
 
+void Level::create(const std::string& name)
+{
+	LOG_INFO("Creating level {}.", name);
+
+	std::ofstream file;
+
+	file.open(pathIn, std::fstream::out|std::fstream::app);
+
+	if (file.is_open())
+	{
+		LOG_INFO("{} opened successfuly.", pathIn);
+
+		// Creating default level
+		file << "name " << name << "\n";
+		file << "224 30\n";
+
+		for (size_t y = 0; y < 30; y++)
+		{
+			for (size_t x = 0; x < 224; x++)
+			{
+				file << " " << (y > 27 ? "1" : "0");
+			}
+
+			file << "\n";
+		}
+
+		file << "\n";
+
+		file.close();
+	}
+	else
+		LOG_ERROR("Couldn't open file {}.", pathIn);
+}
+
 void Level::parseLine(const std::string& line)
 {
 	int tile = 0;
@@ -187,15 +221,12 @@ void Level::parseLine(const std::string& line)
 
 	while (liness >> tile)
 	{
-		std::cout << tile << " ";
 		auto t = GenTile(TileType(tile), window);
 		t->setPosition(sf::Vector2f((float)(i * 16 * 4), (float)((tiles.size() + 1 - i) / width * 16 * 4)));
 		tiles.push_back(t);
 
 		i++;
 	}
-
-	std::cout << "\n";
 }
 
 std::string Level::getLine(const size_t& line) const

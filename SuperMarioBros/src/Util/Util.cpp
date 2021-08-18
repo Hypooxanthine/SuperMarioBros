@@ -12,3 +12,13 @@ size_t getUserIntRange(const std::string& label, const size_t& min, const size_t
 
 	return out;
 }
+
+std::string getUserString(const std::string& label)
+{
+	std::string out;
+
+	std::cout << label << ": ";
+	std::cin >> out;
+
+	return out;
+}

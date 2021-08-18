@@ -28,6 +28,7 @@ void EditorState::init()
 		openLevel();
 		break;
 	case 2:
+		createLevel();
 		break;
 	default:
 		break;
@@ -55,7 +56,8 @@ void EditorState::update(const float& dt)
 
 	if ((xPos != xPosOld || yPos != yPosOld)
 		&& xPos < level->getWidth() && yPos < level->getHeight()
-		&& belongsToView(mousePosWorld))
+		&& belongsToView(mousePosWorld)
+		&& window->hasFocus())
 	{
 		if (cursorTile)
 			cursorTile->setHighlight(false);
@@ -68,16 +70,19 @@ void EditorState::update(const float& dt)
 
 	float tilesPerSecond = 15.f * 16.f * 4.f;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		moveView(sf::Vector2f(-tilesPerSecond * dt, 0));
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		moveView(sf::Vector2f(tilesPerSecond * dt, 0));
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		moveView(sf::Vector2f(0.f, tilesPerSecond * dt));
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		moveView(sf::Vector2f(0.f, -tilesPerSecond * dt));
+	if (window->hasFocus())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+			moveView(sf::Vector2f(-tilesPerSecond * dt, 0));
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			moveView(sf::Vector2f(tilesPerSecond * dt, 0));
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			moveView(sf::Vector2f(0.f, tilesPerSecond * dt));
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+			moveView(sf::Vector2f(0.f, -tilesPerSecond * dt));
+	}
 
-	if (belongsToView(mousePosWorld))
+	if (belongsToView(mousePosWorld) && window->hasFocus())
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
@@ -125,6 +130,28 @@ void EditorState::openLevel()
 
 		level->load(levels[in - 1]);
 	}
+}
+
+void EditorState::createLevel()
+{
+	std::string levelName;
+	bool alreadyExists = true;
+
+	while (alreadyExists)
+	{
+		levelName = getUserString("New level name");
+
+		// Checking if the new level name isn't already used
+		alreadyExists = false;
+		for (const auto& name : level->getLevelsList())
+		{
+			if (name == levelName)
+				alreadyExists = true;
+		}
+	}
+
+	level->create(levelName);
+	level->load(levelName);
 }
 
 void EditorState::moveView(const sf::Vector2f& delta)

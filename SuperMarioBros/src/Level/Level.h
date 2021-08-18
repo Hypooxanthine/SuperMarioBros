@@ -19,6 +19,8 @@ public:
 	static std::vector<std::string> getLevelsList();
 	bool save() const;
 
+	void create(const std::string& name);
+
 	inline const bool& isLoaded() { return loaded; }
 
 	void render();

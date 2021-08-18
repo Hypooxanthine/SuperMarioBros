@@ -14,6 +14,7 @@ public:
 	virtual void render() override;
 
 	void openLevel();
+	void createLevel();
 
 	void moveView(const sf::Vector2f& delta);
 

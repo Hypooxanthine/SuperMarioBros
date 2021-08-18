@@ -8,7 +8,6 @@ Ref<Tile> createInstance(Ref<sf::RenderWindow> window)
 	return MakeRef<T>(window);
 }
 
-
 Ref<Tile> GenTile(const TileType& type, Ref<sf::RenderWindow> window)
 {
 	/* We create a mapping : each enum allows to create a Ref of its specific Tile derived class.
