@@ -32,6 +32,9 @@ void Application::manageEvents()
 	{
 		if (e.type == sf::Event::Closed)
 			window->close();
+
+		if (!states.empty())
+			states.top()->updateEvents(e, dt);
 	}
 }
 

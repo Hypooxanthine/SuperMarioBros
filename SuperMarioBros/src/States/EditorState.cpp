@@ -4,9 +4,9 @@
 
 EditorState::EditorState(Ref<sf::RenderWindow> window)
 	: State(window), level(MakeRef<Level>(window)), cursorTile(nullptr), activeTile(nullptr),
-	levelView(sf::View(sf::FloatRect(0.f, (float)(16 * 4 * 15), (float)(256 * 4), (float)(240 * 4))))
-{
-}
+	levelView(sf::View(sf::FloatRect(0.f, (float)(16 * 4 * 15), (float)(256 * 4), (float)(240 * 4)))),
+	cameraSpeed(15.f * 16.f * 4.f), toolkitSize(sf::Vector2u(100, window->getSize().y))
+{}
 
 EditorState::~EditorState()
 {
@@ -19,14 +19,23 @@ void EditorState::init()
 
 	editorSelector();
 
-	window->setSize(sf::Vector2u((unsigned int)((float)window->getSize().x / 0.9f), window->getSize().y));
-	levelView.setViewport(sf::FloatRect(0.f, 0.f, 0.9f, 1.f));
+	levelSize = window->getSize();
+
+	window->setSize(sf::Vector2u(levelSize.x + toolkitSize.x, window->getSize().y));
+	levelView.setViewport(sf::FloatRect(0.f, 0.f, (float)levelSize.x / (levelSize.x + toolkitSize.x), 1.f));
+	toolkitView.setViewport(sf::FloatRect((float)levelSize.x / (levelSize.x + toolkitSize.x), 0.f, 1.f, 1.f));
+
+	toolkitBackground.setSize((sf::Vector2f)window->getSize());
+	toolkitBackground.setFillColor(sf::Color::Magenta);
+	toolkitBackground.setPosition(0.f, 0.f);
 }
+
+void EditorState::updateEvents(sf::Event& e, const float& dt)
+{}
 
 void EditorState::update(const float& dt)
 {
 	static size_t xPos = 0, yPos = 0, xPosOld = 0, yPosOld = 0; //Static because we want these variables to last more than this scope. They are not member variables because they are not used anywhere else than here for now.
-	static const auto& view = window->getView(); //It is pointless to set this variable again and again because it holds a ref
 
 	// Updating old mouse positions
 	xPosOld = xPos;
@@ -36,8 +45,8 @@ void EditorState::update(const float& dt)
 	const auto& mousePosWorld = window->mapPixelToCoords(mousePos);
 
 	// Updating new mouse positions
-	xPos = size_t((view.getCenter().x + mousePos.x - view.getSize().x / 2.f) / (16 * 4));
-	yPos = size_t((view.getCenter().y + mousePos.y - view.getSize().y / 2.f) / (16 * 4));
+	xPos = size_t((levelView.getCenter().x + mousePos.x - levelView.getSize().x / 2.f) / (16 * 4));
+	yPos = size_t((levelView.getCenter().y + mousePos.y - levelView.getSize().y / 2.f) / (16 * 4));
 
 	if ((xPos != xPosOld || yPos != yPosOld)
 		&& xPos < level->getWidth() && yPos < level->getHeight()
@@ -53,18 +62,16 @@ void EditorState::update(const float& dt)
 			cursorTile->setHighlight(true);
 	}
 
-	float tilesPerSecond = 15.f * 16.f * 4.f;
-
 	if (window->hasFocus())
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-			moveView(sf::Vector2f(-tilesPerSecond * dt, 0));
+			moveView(sf::Vector2f(-cameraSpeed * dt, 0));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			moveView(sf::Vector2f(tilesPerSecond * dt, 0));
+			moveView(sf::Vector2f(cameraSpeed * dt, 0));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			moveView(sf::Vector2f(0.f, tilesPerSecond * dt));
+			moveView(sf::Vector2f(0.f, cameraSpeed * dt));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-			moveView(sf::Vector2f(0.f, -tilesPerSecond * dt));
+			moveView(sf::Vector2f(0.f, -cameraSpeed * dt));
 	}
 
 	if (belongsToView(mousePosWorld) && window->hasFocus())
@@ -90,11 +97,13 @@ void EditorState::render()
 {
 	if (level->isLoaded())
 	{
+		// TODO : Drawing editor toolkit
+		window->setView(toolkitView);
+		window->draw(toolkitBackground);
+
 		// Drawing level
 		window->setView(levelView);
 		level->render();
-
-		// TODO : Drawing editor toolkit
 	}
 }
 
@@ -197,8 +206,6 @@ void EditorState::moveView(const sf::Vector2f& delta)
 template<class T>
 bool EditorState::belongsToView(const sf::Vector2<T>& point) const
 {
-	static const auto& view = window->getView();
-
-	return std::abs(point.x - view.getCenter().x) < view.getSize().x / 2.f
-		&& std::abs(point.y - view.getCenter().y) < view.getSize().y / 2.f;
+	return std::abs(point.x - levelView.getCenter().x) < levelView.getSize().x / 2.f
+		&& std::abs(point.y - levelView.getCenter().y) < levelView.getSize().y / 2.f;
 }

@@ -10,6 +10,7 @@ public:
 	virtual ~EditorState();
 
 	virtual void init() override;
+	virtual void updateEvents(sf::Event& e, const float& dt) override;
 	virtual void update(const float& dt) override;
 	virtual void render() override;
 
@@ -28,6 +29,11 @@ private:
 	Ref<Tile> cursorTile;
 	Ref<Tile> activeTile;
 
-	sf::View levelView;
+	sf::View levelView, toolkitView;
+	sf::Vector2u levelSize, toolkitSize;
+	sf::RectangleShape toolkitBackground;
+
+	// Map movement
+	float cameraSpeed;
 };
 

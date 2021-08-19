@@ -5,8 +5,8 @@
 #define TILE_INIT_DEF(tile) \
 public:\
 	using Type = tile;\
-	virtual sf::Sprite& getSprite() const override;\
 	tile(Ref<sf::RenderWindow> window) : Tile(window) {}\
+	virtual sf::Sprite& getSprite() const override;\
 	virtual TileType& getType() override { static TileType type = TileType::tile; return type; }\
 private:\
 	static sf::Sprite sprite;
