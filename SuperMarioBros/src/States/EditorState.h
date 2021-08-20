@@ -29,9 +29,14 @@ private:
 	Ref<Tile> cursorTile;
 	Ref<Tile> activeTile;
 
+	// Views
 	sf::View levelView, toolkitView;
 	sf::Vector2u levelSize, toolkitSize;
+
+	// Toolkit
 	sf::RectangleShape toolkitBackground;
+	TileType selectedTile;
+	void selectTile(const TileType& type);
 
 	// Map movement
 	float cameraSpeed;

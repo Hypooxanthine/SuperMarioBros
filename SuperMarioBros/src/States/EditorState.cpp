@@ -6,7 +6,9 @@ EditorState::EditorState(Ref<sf::RenderWindow> window)
 	: State(window), level(MakeRef<Level>(window)), cursorTile(nullptr), activeTile(nullptr),
 	levelView(sf::View(sf::FloatRect(0.f, (float)(16 * 4 * 15), (float)(256 * 4), (float)(240 * 4)))),
 	cameraSpeed(15.f * 16.f * 4.f), toolkitSize(sf::Vector2u(100, window->getSize().y))
-{}
+{
+	selectTile(TileType::Rock);
+}
 
 EditorState::~EditorState()
 {
@@ -24,8 +26,10 @@ void EditorState::init()
 	window->setSize(sf::Vector2u(levelSize.x + toolkitSize.x, window->getSize().y));
 	levelView.setViewport(sf::FloatRect(0.f, 0.f, (float)levelSize.x / (levelSize.x + toolkitSize.x), 1.f));
 	toolkitView.setViewport(sf::FloatRect((float)levelSize.x / (levelSize.x + toolkitSize.x), 0.f, 1.f, 1.f));
+	toolkitView.setSize(sf::Vector2f(toolkitView.getSize().x, (float)toolkitSize.y));
+	toolkitView.setCenter(toolkitView.getSize() / 2.f);
 
-	toolkitBackground.setSize((sf::Vector2f)window->getSize());
+	toolkitBackground.setSize((sf::Vector2f)toolkitSize);
 	toolkitBackground.setFillColor(sf::Color::Magenta);
 	toolkitBackground.setPosition(0.f, 0.f);
 }
@@ -78,7 +82,7 @@ void EditorState::update(const float& dt)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			auto newTile = GenTile(TileType::Rock, window);
+			auto newTile = GenTile(selectedTile, window);
 			level->setTile(xPos, yPos, newTile);
 			cursorTile = newTile;
 			cursorTile->setHighlight(true);
@@ -100,6 +104,11 @@ void EditorState::render()
 		// TODO : Drawing editor toolkit
 		window->setView(toolkitView);
 		window->draw(toolkitBackground);
+		/*sf::RectangleShape test;
+		test.setSize(sf::Vector2f(64.f, 64.f)); // ?????
+		test.setFillColor(sf::Color(50, 50, 50));
+		test.setPosition(0.f, 0.f);
+		window->draw(test);*/
 
 		// Drawing level
 		window->setView(levelView);
@@ -201,6 +210,11 @@ void EditorState::moveView(const sf::Vector2f& delta)
 		levelView.setCenter(sf::Vector2f(level->getWidth() * 16.f * 4.f - size.x / 2.f, center.y));
 	if (center.y + size.y / 2.f > level->getHeight() * 16.f * 4.f)
 		levelView.setCenter(sf::Vector2f(center.x, level->getHeight() * 16.f * 4.f - size.y / 2.f));
+}
+
+void EditorState::selectTile(const TileType& type)
+{
+	selectedTile = type;
 }
 
 template<class T>
