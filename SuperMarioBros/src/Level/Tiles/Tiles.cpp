@@ -23,6 +23,8 @@ Ref<Tile> GenTile(const TileType& type, Ref<sf::RenderWindow> window)
 	{
 		FEED_TILESET(Empty);
 		FEED_TILESET(Rock);
+		FEED_TILESET(Brick);
+		FEED_TILESET(Mystery);
 
 		init = true;
 	}

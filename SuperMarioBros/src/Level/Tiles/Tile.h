@@ -7,9 +7,7 @@ public:\
 	using Type = tile;\
 	tile(Ref<sf::RenderWindow> window) : Tile(window) {}\
 	virtual sf::Sprite& getSprite() const override;\
-	virtual TileType& getType() override { static TileType type = TileType::tile; return type; }\
-private:\
-	static sf::Sprite sprite;
+	virtual const TileType& getType() const override { static TileType type = TileType::tile; return type; }\
 
 #define TILE_INIT_IMP(tile, x, y) \
 sf::Sprite& tile::getSprite() const\
@@ -35,6 +33,8 @@ enum class TileType
 
 	Rock = 1,
 	Stone = 2,
+	Brick = 3,
+	Mystery = 4,
 };
 
 class Tile
@@ -50,7 +50,7 @@ public:
 	inline bool isSolid() { return solid; }
 	static sf::Texture& getSpriteSheet();
 	virtual sf::Sprite& getSprite() const = 0;
-	virtual TileType& getType() = 0;
+	virtual const TileType& getType() const = 0;
 
 	//Setter
 	inline void setSolid(const bool& value) { solid = value; }

@@ -31,7 +31,7 @@ int main()
 	//fillMap();
 
 	Log::init();
-	
+
 	Application* app = new Application();
 
 	app->run();

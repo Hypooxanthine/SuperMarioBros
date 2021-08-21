@@ -2,6 +2,7 @@
 
 #include "State.h"
 #include "../Level/Level.h"
+#include "../Level/TileSwapper.h"
 
 class EditorState : public State
 {
@@ -35,8 +36,7 @@ private:
 
 	// Toolkit
 	sf::RectangleShape toolkitBackground;
-	TileType selectedTile;
-	void selectTile(const TileType& type);
+	TileSwapper swapper;
 
 	// Map movement
 	float cameraSpeed;

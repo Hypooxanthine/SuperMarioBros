@@ -167,6 +167,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Level\Tiles\Mystery.cpp" />
+    <ClCompile Include="src\Level\Tiles\Brick.cpp" />
     <ClCompile Include="src\States\EditorState.cpp" />
     <ClCompile Include="src\Level\Tiles\Empty.cpp" />
     <ClCompile Include="src\Level\Tiles\Rock.cpp" />
@@ -179,8 +181,11 @@
     <ClCompile Include="src\States\State.cpp" />
     <ClCompile Include="src\Level\Tiles\Tile.cpp" />
     <ClCompile Include="src\Util\Util.cpp" />
+    <ClCompile Include="src\Level\TileSwapper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Level\Tiles\Mystery.h" />
+    <ClInclude Include="src\Level\Tiles\Brick.h" />
     <ClInclude Include="src\States\EditorState.h" />
     <ClInclude Include="src\Level\Tiles\Empty.h" />
     <ClInclude Include="src\Level\Tiles\Rock.h" />
@@ -194,6 +199,7 @@
     <ClInclude Include="src\States\States.h" />
     <ClInclude Include="src\Level\Tiles\Tile.h" />
     <ClInclude Include="src\Util\Util.h" />
+    <ClInclude Include="src\Level\TileSwapper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
