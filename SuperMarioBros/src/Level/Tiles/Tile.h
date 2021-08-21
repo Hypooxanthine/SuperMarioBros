@@ -44,7 +44,7 @@ public:
 	Tile(Ref<sf::RenderWindow> window);
 
 	inline void setHighlight(const bool& highlight) { this->highlight = highlight; }
-	void render() const;
+	virtual void render() const;
 
 	//Getters
 	inline bool isSolid() { return solid; }

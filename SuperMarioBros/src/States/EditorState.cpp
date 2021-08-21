@@ -71,8 +71,6 @@ void EditorState::update(const float& dt)
 		yPos = size_t((levelView.getCenter().y + mousePos.y - levelView.getSize().y / 2.f) / (16 * 4));
 	}
 
-	LOG_TRACE("x : {}, y : {}", xPos, yPos);
-
 	if ((xPos != xPosOld || yPos != yPosOld)
 		&& belongsToView(mousePosWorld)
 		&& window->hasFocus())
