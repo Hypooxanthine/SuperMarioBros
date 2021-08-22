@@ -26,7 +26,7 @@ void EditorState::init()
 	window->setSize(sf::Vector2u(levelSize.x + toolkitSize.x, window->getSize().y));
 	levelView.setViewport(sf::FloatRect(0.f, 0.f, (float)levelSize.x / (levelSize.x + toolkitSize.x), 1.f));
 	toolkitView.setViewport(sf::FloatRect((float)levelSize.x / (levelSize.x + toolkitSize.x), 0.f, 1.f, 1.f));
-	toolkitView.setSize(sf::Vector2f(toolkitView.getSize().x + (float)toolkitSize.x, (float)toolkitSize.y));
+	toolkitView.setSize(sf::Vector2f((float)(toolkitSize.x + levelSize.x), (float)toolkitSize.y));
 	toolkitView.setCenter(toolkitView.getSize() / 2.f);
 
 	toolkitBackground.setSize((sf::Vector2f)toolkitSize);
@@ -60,6 +60,9 @@ void EditorState::update(const float& dt)
 	const auto& mousePos = sf::Mouse::getPosition(*window);
 	const auto& mousePosWorld = window->mapPixelToCoords(mousePos);
 
+	static bool outOfView = false;
+	static bool justEnteredView = false;
+
 	// Updating new mouse positions
 	if (belongsToView(mousePosWorld))
 	{
@@ -69,9 +72,18 @@ void EditorState::update(const float& dt)
 
 		xPos = size_t((levelView.getCenter().x + mousePos.x - levelView.getSize().x / 2.f) / (16 * 4));
 		yPos = size_t((levelView.getCenter().y + mousePos.y - levelView.getSize().y / 2.f) / (16 * 4));
+
+		if (outOfView)
+			justEnteredView = true;
+		outOfView = false;
+	}
+	else
+	{
+		outOfView = true;
+		justEnteredView = false;
 	}
 
-	if ((xPos != xPosOld || yPos != yPosOld)
+	if ((xPos != xPosOld || yPos != yPosOld || justEnteredView)
 		&& belongsToView(mousePosWorld)
 		&& window->hasFocus())
 	{
