@@ -60,6 +60,9 @@ void EditorState::update(const float& dt)
 	const auto& mousePos = sf::Mouse::getPosition(*window);
 	const auto& mousePosWorld = window->mapPixelToCoords(mousePos);
 
+	// These booleons allow to know if cursor just entered the level view. When the cursor exit level view, xPos and yPos don't update.
+	// Then, by coming back into level view, on the same tile, xPos = xPosOld, and yPos = yPosOld, and the highlighting wouldn't work
+	// correctly. These booleans avoid this unwanted behaviour.
 	static bool outOfView = false;
 	static bool justEnteredView = false;
 
