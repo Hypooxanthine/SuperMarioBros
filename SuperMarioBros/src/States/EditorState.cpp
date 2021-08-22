@@ -26,7 +26,7 @@ void EditorState::init()
 	window->setSize(sf::Vector2u(levelSize.x + toolkitSize.x, window->getSize().y));
 	levelView.setViewport(sf::FloatRect(0.f, 0.f, (float)levelSize.x / (levelSize.x + toolkitSize.x), 1.f));
 	toolkitView.setViewport(sf::FloatRect((float)levelSize.x / (levelSize.x + toolkitSize.x), 0.f, 1.f, 1.f));
-	toolkitView.setSize(sf::Vector2f(toolkitView.getSize().x, (float)toolkitSize.y));
+	toolkitView.setSize(sf::Vector2f(toolkitView.getSize().x + (float)toolkitSize.x, (float)toolkitSize.y));
 	toolkitView.setCenter(toolkitView.getSize() / 2.f);
 
 	toolkitBackground.setSize((sf::Vector2f)toolkitSize);

@@ -18,6 +18,7 @@ void Empty::render() const
 		initialized = true;
 	}
 
+	// Removed parent's sprite rendering
 	frame.setPosition(position);
 	if (highlight)
 		window->draw(frame);
