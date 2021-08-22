@@ -24,8 +24,8 @@ Clone the repo on your the remote machine. Then download the followings :
 - spdlog : https://github.com/gabime/spdlog
 
 You can only install SFML x64 or x86 if you want, but choose at least one to be able to compile.
-- SFML includes should be put in the folder External/SFML-x64/include and External/SFML-x86/include. (example : External/SFML-x86/include/SFML/...)
-- SFML libs should be put in the folder External/SFML-x64/lib and External/SFML-x86/lib. (example : External/SFML-x86/lib/SFML/...)
-- spdlog includes should be put in the folder External/SPDLOG/include. (example : External/SPDLOG/include/spdlog/)
+- SFML includes should be put in the folder External/SFML-x64/include and External/SFML-x86/include. (External/SFML-x86/include/SFML/...)
+- SFML libs should be put in the folder External/SFML-x64/lib and External/SFML-x86/lib. (External/SFML-x86/lib/SFML/...)
+- spdlog includes should be put in the folder External/SPDLOG/include. (External/SPDLOG/include/spdlog/...)
 
 You should be able to compile by opening the solution with Visual Studio 19 (only tested IDE).
