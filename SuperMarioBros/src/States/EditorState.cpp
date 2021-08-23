@@ -87,8 +87,7 @@ void EditorState::update(const float& dt)
 	}
 
 	if ((xPos != xPosOld || yPos != yPosOld || justEnteredView) // Update highlighting when cursor just entered level view on the same tile it had exited.
-		&& belongsToView(mousePosWorld)
-		&& window->hasFocus())
+		&& belongsToView(mousePosWorld))
 	{
 		if (cursorTile)
 			cursorTile->setHighlight(false);
