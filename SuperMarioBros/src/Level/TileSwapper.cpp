@@ -34,6 +34,7 @@ void TileSwapper::previous()
 void TileSwapper::init()
 {
 	add(TileType::Rock);
+	add(TileType::Stone);
 	add(TileType::Brick);
 	add(TileType::Mystery);
 
@@ -42,7 +43,8 @@ void TileSwapper::init()
 	add(TileType::LittleBushR);
 
 	add(TileType::BigBushL);
-	add(TileType::BigBushM);
+	add(TileType::BigBushBlack);
+	add(TileType::BigBushEmpty);
 	add(TileType::BigBushR);
 	add(TileType::BigBushT);
 

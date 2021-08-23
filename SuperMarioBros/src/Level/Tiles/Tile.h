@@ -41,7 +41,8 @@ enum class TileType
 	LittleBushR,
 
 	BigBushL,
-	BigBushM,
+	BigBushBlack,
+	BigBushEmpty,
 	BigBushR,
 	BigBushT,
 

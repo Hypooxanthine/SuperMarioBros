@@ -1,8 +1,11 @@
 #pragma once
 
 #include "Tile.h"
-#include "Rock.h"
+
 #include "Empty.h"
+
+#include "Rock.h"
+#include "Stone.h"
 #include "Brick.h"
 #include "Mystery.h"
 
@@ -11,7 +14,8 @@
 #include "LittleBushR.h"
 
 #include "BigBushL.h"
-#include "BigBushM.h"
+#include "BigBushBlack.h"
+#include "BigBushEmpty.h"
 #include "BigBushR.h"
 #include "BigBushT.h"
 

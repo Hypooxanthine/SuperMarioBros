@@ -22,7 +22,9 @@ Ref<Tile> GenTile(const TileType& type, Ref<sf::RenderWindow> window)
 	if (!init)
 	{
 		FEED_TILESET(Empty);
+
 		FEED_TILESET(Rock);
+		FEED_TILESET(Stone);
 		FEED_TILESET(Brick);
 		FEED_TILESET(Mystery);
 
@@ -31,7 +33,8 @@ Ref<Tile> GenTile(const TileType& type, Ref<sf::RenderWindow> window)
 		FEED_TILESET(LittleBushR);
 
 		FEED_TILESET(BigBushL);
-		FEED_TILESET(BigBushM);
+		FEED_TILESET(BigBushBlack);
+		FEED_TILESET(BigBushEmpty);
 		FEED_TILESET(BigBushR);
 		FEED_TILESET(BigBushT);
 
