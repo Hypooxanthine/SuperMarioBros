@@ -19,7 +19,7 @@ sf::Sprite& tile::getSprite() const\
 	{\
 		LOG_TRACE("Initialization of {} sprite.", #tile);\
 		sprite.setTexture(Tile::getSpriteSheet());\
-		sprite.setTextureRect(sf::IntRect(x, y, 16, 16));\
+		sprite.setTextureRect(sf::IntRect(x * 16, y * 16, 16, 16));\
 		sprite.setScale(sf::Vector2f(4.f, 4.f));\
 		initialized = true;\
 	}\
@@ -31,10 +31,41 @@ enum class TileType
 {
 	Empty = 0,
 
-	Rock = 1,
-	Stone = 2,
-	Brick = 3,
-	Mystery = 4,
+	Rock,
+	Stone,
+	Brick,
+	Mystery,
+
+	LittleBushL,
+	LittleBushM,
+	LittleBushR,
+
+	BigBushL,
+	BigBushM,
+	BigBushR,
+	BigBushT,
+
+	CloudTL,
+	CloudTM,
+	CloudTR,
+	CloudBL,
+	CloudBM,
+	CloudBR,
+
+	PipeTL,
+	PipeTR,
+	PipeL,
+	PipeR,
+
+	FlagT,
+	FlagM,
+
+	CastleEntryM,
+	CastleEntryL,
+	CastleEntryR,
+	CastleEntryT,
+	CastleWallEmpty,
+	CastleWallFilled,
 };
 
 class Tile

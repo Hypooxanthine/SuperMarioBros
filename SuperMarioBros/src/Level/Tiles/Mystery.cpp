@@ -1,3 +1,3 @@
 #include "Mystery.h"
 
-TILE_INIT_IMP(Mystery, 16 * 3, 0)
+TILE_INIT_IMP(Mystery, 3, 0)

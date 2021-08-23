@@ -167,6 +167,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Level\Tiles\CloudBM.cpp" />
+    <ClCompile Include="src\Level\Tiles\CloudTM.cpp" />
+    <ClCompile Include="src\Level\Tiles\BigBushL.cpp" />
+    <ClCompile Include="src\Level\Tiles\BigBushM.cpp" />
+    <ClCompile Include="src\Level\Tiles\BigBushR.cpp" />
+    <ClCompile Include="src\Level\Tiles\BigBushT.cpp" />
+    <ClCompile Include="src\Level\Tiles\CloudBL.cpp" />
+    <ClCompile Include="src\Level\Tiles\CloudBR.cpp" />
+    <ClCompile Include="src\Level\Tiles\CloudTL.cpp" />
+    <ClCompile Include="src\Level\Tiles\CloudTR.cpp" />
+    <ClCompile Include="src\Level\Tiles\LittleBushM.cpp" />
+    <ClCompile Include="src\Level\Tiles\LittleBushR.cpp" />
+    <ClCompile Include="src\Level\Tiles\LittleBushL.cpp" />
     <ClCompile Include="src\Level\Tiles\Mystery.cpp" />
     <ClCompile Include="src\Level\Tiles\Brick.cpp" />
     <ClCompile Include="src\States\EditorState.cpp" />
@@ -184,6 +197,19 @@
     <ClCompile Include="src\Level\TileSwapper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Level\Tiles\CloudBM.h" />
+    <ClInclude Include="src\Level\Tiles\CloudTM.h" />
+    <ClInclude Include="src\Level\Tiles\BigBushL.h" />
+    <ClInclude Include="src\Level\Tiles\BigBushM.h" />
+    <ClInclude Include="src\Level\Tiles\BigBushR.h" />
+    <ClInclude Include="src\Level\Tiles\BigBushT.h" />
+    <ClInclude Include="src\Level\Tiles\CloudBL.h" />
+    <ClInclude Include="src\Level\Tiles\CloudBR.h" />
+    <ClInclude Include="src\Level\Tiles\CloudTL.h" />
+    <ClInclude Include="src\Level\Tiles\CloudTR.h" />
+    <ClInclude Include="src\Level\Tiles\LittleBushM.h" />
+    <ClInclude Include="src\Level\Tiles\LittleBushR.h" />
+    <ClInclude Include="src\Level\Tiles\LittleBushL.h" />
     <ClInclude Include="src\Level\Tiles\Mystery.h" />
     <ClInclude Include="src\Level\Tiles\Brick.h" />
     <ClInclude Include="src\States\EditorState.h" />

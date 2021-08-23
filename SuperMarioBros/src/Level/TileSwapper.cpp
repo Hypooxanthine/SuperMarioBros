@@ -36,6 +36,22 @@ void TileSwapper::init()
 	add(TileType::Rock);
 	add(TileType::Brick);
 	add(TileType::Mystery);
+
+	add(TileType::LittleBushL);
+	add(TileType::LittleBushM);
+	add(TileType::LittleBushR);
+
+	add(TileType::BigBushL);
+	add(TileType::BigBushM);
+	add(TileType::BigBushR);
+	add(TileType::BigBushT);
+
+	add(TileType::CloudTL);
+	add(TileType::CloudTM);
+	add(TileType::CloudTR);
+	add(TileType::CloudBL);
+	add(TileType::CloudBM);
+	add(TileType::CloudBR);
 }
 
 void TileSwapper::add(const TileType& t)

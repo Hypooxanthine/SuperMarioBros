@@ -26,6 +26,22 @@ Ref<Tile> GenTile(const TileType& type, Ref<sf::RenderWindow> window)
 		FEED_TILESET(Brick);
 		FEED_TILESET(Mystery);
 
+		FEED_TILESET(LittleBushL);
+		FEED_TILESET(LittleBushM);
+		FEED_TILESET(LittleBushR);
+
+		FEED_TILESET(BigBushL);
+		FEED_TILESET(BigBushM);
+		FEED_TILESET(BigBushR);
+		FEED_TILESET(BigBushT);
+
+		FEED_TILESET(CloudTL);
+		FEED_TILESET(CloudTM);
+		FEED_TILESET(CloudTR);
+		FEED_TILESET(CloudBL);
+		FEED_TILESET(CloudBM);
+		FEED_TILESET(CloudBR);
+
 		init = true;
 	}
 
