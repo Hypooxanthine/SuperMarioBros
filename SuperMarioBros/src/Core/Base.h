@@ -22,3 +22,12 @@ constexpr Ref<T> MakeRef(Args&& ... args)
 
 /* Logging. */
 #include "Log.h"
+
+/* Consts. */
+const float GLOBAL_SCALE = 4.f;
+const float TILE_SIZE = 16.f * GLOBAL_SCALE;
+const uint32_t LEVEL_TILES_X = 16;
+const uint32_t LEVEL_TILES_Y = 15;
+
+const uint32_t TOOLKIT_WIDTH = 100;
+const float EDITOR_SPEED = 15.f * TILE_SIZE;

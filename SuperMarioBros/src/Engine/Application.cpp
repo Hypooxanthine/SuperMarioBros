@@ -3,7 +3,7 @@
 Application::Application()
 	: window(nullptr), e(sf::Event())
 {
-	window = MakeRef<sf::RenderWindow>(sf::VideoMode(256 * 4, 240 * 4, 32), "Super Marios Bros.", !sf::Style::Resize | !sf::Style::Fullscreen|sf::Style::Titlebar|sf::Style::Close);
+	window = MakeRef<sf::RenderWindow>(sf::VideoMode((int)TILE_SIZE * 16, (int)TILE_SIZE * 15, 32), "Super Marios Bros.", !sf::Style::Resize | !sf::Style::Fullscreen|sf::Style::Titlebar|sf::Style::Close);
 	LOG_TRACE("Created Application.");
 }
 

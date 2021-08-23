@@ -14,7 +14,7 @@ void Level::setTile(const size_t& x, const size_t& y, Ref<Tile> tile)
 {
 	if (x < width && y < height)
 	{
-		tile->setPosition(sf::Vector2f((float)(x * 16 * 4), (float)(y * 16 * 4)));
+		tile->setPosition(sf::Vector2f((float)(x * TILE_SIZE), (float)(y * TILE_SIZE)));
 		tiles[y * width + x] = tile;
 	}
 }
@@ -229,7 +229,7 @@ void Level::parseLine(const std::string& line)
 	while (liness >> tile)
 	{
 		auto t = GenTile(TileType(tile), window);
-		t->setPosition(sf::Vector2f((float)(i * 16 * 4), (float)((tiles.size() + 1 - i) / width * 16 * 4)));
+		t->setPosition(sf::Vector2f((float)(i * TILE_SIZE), (float)((tiles.size() + 1 - i) / width * TILE_SIZE)));
 		tiles.push_back(t);
 
 		i++;
@@ -283,10 +283,10 @@ void Level::render()
 
 	const auto& view = window->getView();
 
-	minX = int((view.getCenter().x - view.getSize().x / 2) / (16 * 4));
-	maxX = int((view.getCenter().x + view.getSize().x / 2) / (16 * 4));
-	minY = int((view.getCenter().y - view.getSize().y / 2) / (16 * 4));
-	maxY = int((view.getCenter().y + view.getSize().y / 2) / (16 * 4));
+	minX = int((view.getCenter().x - view.getSize().x / 2) / TILE_SIZE);
+	maxX = int((view.getCenter().x + view.getSize().x / 2) / TILE_SIZE);
+	minY = int((view.getCenter().y - view.getSize().y / 2) / TILE_SIZE);
+	maxY = int((view.getCenter().y + view.getSize().y / 2) / TILE_SIZE);
 
 	if (maxX < width)
 		maxX++;

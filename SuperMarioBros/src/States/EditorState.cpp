@@ -4,8 +4,8 @@
 
 EditorState::EditorState(Ref<sf::RenderWindow> window)
 	: State(window), level(MakeRef<Level>(window)), cursorTile(nullptr), activeTile(nullptr),
-	levelView(sf::View(sf::FloatRect(0.f, (float)(16 * 4 * 15), (float)(256 * 4), (float)(240 * 4)))),
-	cameraSpeed(15.f * 16.f * 4.f), toolkitSize(sf::Vector2u(100, window->getSize().y)), swapper(window)
+	levelView(sf::View(sf::FloatRect(0.f, (float)(TILE_SIZE * 15), (float)(TILE_SIZE * LEVEL_TILES_X), (float)(TILE_SIZE * LEVEL_TILES_Y)))),
+	toolkitSize(sf::Vector2u(TOOLKIT_WIDTH, window->getSize().y)), swapper(window, (sf::Vector2f)toolkitSize)
 {
 	
 }
@@ -30,7 +30,7 @@ void EditorState::init()
 	toolkitView.setCenter(toolkitView.getSize() / 2.f);
 
 	toolkitBackground.setSize((sf::Vector2f)toolkitSize);
-	toolkitBackground.setFillColor(sf::Color::Blue);
+	toolkitBackground.setFillColor(sf::Color(100, 100, 100));
 	toolkitBackground.setPosition(0.f, 0.f);
 }
 
@@ -73,8 +73,8 @@ void EditorState::update(const float& dt)
 		xPosOld = xPos;
 		yPosOld = yPos;
 
-		xPos = size_t((levelView.getCenter().x + mousePos.x - levelView.getSize().x / 2.f) / (16 * 4));
-		yPos = size_t((levelView.getCenter().y + mousePos.y - levelView.getSize().y / 2.f) / (16 * 4));
+		xPos = size_t((levelView.getCenter().x + mousePos.x - levelView.getSize().x / 2.f) / TILE_SIZE);
+		yPos = size_t((levelView.getCenter().y + mousePos.y - levelView.getSize().y / 2.f) / TILE_SIZE);
 
 		if (outOfView)
 			justEnteredView = true;
@@ -109,13 +109,13 @@ void EditorState::update(const float& dt)
 	if (window->hasFocus())
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-			moveView(sf::Vector2f(-cameraSpeed * dt, 0));
+			moveView(sf::Vector2f(-EDITOR_SPEED * dt, 0));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			moveView(sf::Vector2f(cameraSpeed * dt, 0));
+			moveView(sf::Vector2f(EDITOR_SPEED * dt, 0));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			moveView(sf::Vector2f(0.f, cameraSpeed * dt));
+			moveView(sf::Vector2f(0.f, EDITOR_SPEED * dt));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-			moveView(sf::Vector2f(0.f, -cameraSpeed * dt));
+			moveView(sf::Vector2f(0.f, -EDITOR_SPEED * dt));
 	}
 
 	if (belongsToView(mousePosWorld) && window->hasFocus())
@@ -236,7 +236,6 @@ sf::Color EditorState::getBackgroundColor() const
 		return sf::Color(0, 0, 0);
 }
 
-
 void EditorState::moveView(const sf::Vector2f& delta)
 {
 	// Because we're getting center and size by reference, there is no need to initialize those variables more than once, at the first function call.
@@ -251,10 +250,10 @@ void EditorState::moveView(const sf::Vector2f& delta)
 		levelView.setCenter(sf::Vector2f(size.x / 2.f, center.y));
 	if (center.y - size.y / 2.f < 0)
 		levelView.setCenter(sf::Vector2f(center.x, size.y / 2.f));
-	if (center.x + size.x / 2.f > level->getWidth() * 16.f * 4.f)
-		levelView.setCenter(sf::Vector2f(level->getWidth() * 16.f * 4.f - size.x / 2.f, center.y));
-	if (center.y + size.y / 2.f > level->getHeight() * 16.f * 4.f)
-		levelView.setCenter(sf::Vector2f(center.x, level->getHeight() * 16.f * 4.f - size.y / 2.f));
+	if (center.x + size.x / 2.f > level->getWidth() * TILE_SIZE)
+		levelView.setCenter(sf::Vector2f(level->getWidth() * TILE_SIZE - size.x / 2.f, center.y));
+	if (center.y + size.y / 2.f > level->getHeight() * TILE_SIZE)
+		levelView.setCenter(sf::Vector2f(center.x, level->getHeight() * TILE_SIZE - size.y / 2.f));
 }
 
 template<class T>

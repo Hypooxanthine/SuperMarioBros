@@ -39,8 +39,5 @@ private:
 	// Toolkit
 	sf::RectangleShape toolkitBackground;
 	TileSwapper swapper;
-
-	// Map movement
-	float cameraSpeed;
 };
 

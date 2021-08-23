@@ -5,7 +5,7 @@
 class TileSwapper
 {
 public:
-	TileSwapper(Ref<sf::RenderWindow> window);
+	TileSwapper(Ref<sf::RenderWindow> window, const sf::Vector2f& size);
 
 	inline void setMargin(const float& value) { margin = value; }
 
@@ -18,6 +18,7 @@ public:
 
 private:
 	Ref<sf::RenderWindow> window;
+	sf::Vector2f size;
 
 	void init();
 	void add(const TileType& t);
