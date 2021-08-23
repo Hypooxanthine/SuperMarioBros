@@ -276,17 +276,13 @@ sf::Color Level::getBackgroundColor()
 
 void Level::render()
 {
-	// TODO : render the background.
-
-	// Rendering optimization
-	size_t minX = 0, maxX = width, minY = 0, maxY = height;
-
+	// Rendering optimization : we only draw tiles we can see.
 	const auto& view = window->getView();
 
-	minX = int((view.getCenter().x - view.getSize().x / 2) / TILE_SIZE);
-	maxX = int((view.getCenter().x + view.getSize().x / 2) / TILE_SIZE);
-	minY = int((view.getCenter().y - view.getSize().y / 2) / TILE_SIZE);
-	maxY = int((view.getCenter().y + view.getSize().y / 2) / TILE_SIZE);
+	size_t minX = int((view.getCenter().x - view.getSize().x / 2) / TILE_SIZE);
+	size_t maxX = int((view.getCenter().x + view.getSize().x / 2) / TILE_SIZE);
+	size_t minY = int((view.getCenter().y - view.getSize().y / 2) / TILE_SIZE);
+	size_t maxY = int((view.getCenter().y + view.getSize().y / 2) / TILE_SIZE);
 
 	if (maxX < width)
 		maxX++;

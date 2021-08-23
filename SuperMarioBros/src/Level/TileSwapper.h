@@ -17,6 +17,8 @@ public:
 	void previous();
 
 private:
+	void updatePositions();
+
 	Ref<sf::RenderWindow> window;
 	sf::Vector2f size;
 
@@ -26,5 +28,6 @@ private:
 	std::vector<Ref<Tile>> tiles;
 	size_t selected;
 	float margin;
+	float firstPosition;
 };
 
