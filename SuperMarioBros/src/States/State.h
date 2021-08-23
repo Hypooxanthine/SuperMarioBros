@@ -12,6 +12,7 @@ public:
 	virtual void update(const float& dt) = 0;
 	virtual void render() = 0;
 	virtual void init() = 0;
+	virtual sf::Color getBackgroundColor() const = 0;
 
 protected:
 	Ref<sf::RenderWindow> window;

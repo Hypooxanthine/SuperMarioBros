@@ -30,3 +30,11 @@ void GameState::render()
 void GameState::init()
 {
 }
+
+sf::Color GameState::getBackgroundColor() const
+{
+	if (level->isLoaded())
+		return level->getBackgroundColor();
+	else
+		return sf::Color(0, 0, 0);
+}

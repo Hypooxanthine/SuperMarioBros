@@ -3,6 +3,12 @@
 #include "../Core/Base.h"
 #include "Tiles/Tiles.h"
 
+enum class Theme
+{
+	Overworld = 0,
+	Cave = 1,
+};
+
 class Level
 {
 public:
@@ -22,6 +28,7 @@ public:
 	void create(const std::string& name);
 
 	inline const bool& isLoaded() { return loaded; }
+	sf::Color getBackgroundColor();
 
 	void render();
 
@@ -39,6 +46,7 @@ private:
 	bool loaded;
 
 	std::string name;
+	Theme theme;
 	size_t width, height;
 	std::vector<Ref<Tile>> tiles;
 

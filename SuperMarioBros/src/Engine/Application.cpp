@@ -48,7 +48,7 @@ void Application::update()
 
 void Application::render()
 {
-	window->clear();
+	window->clear(states.empty() ? sf::Color::Black : states.top()->getBackgroundColor());
 
 	//Render stuff here
 	if (!states.empty())

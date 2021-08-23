@@ -13,6 +13,8 @@ public:
 	virtual void render() override;
 	virtual void init() override;
 
+	virtual sf::Color getBackgroundColor() const override;
+
 private:
 	Ref<Level> level;
 };

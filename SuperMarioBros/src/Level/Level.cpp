@@ -4,7 +4,7 @@
 #include <sstream>
 
 Level::Level(Ref<sf::RenderWindow> window)
-	: width(0), height(0), window(window), loaded(false)
+	: width(0), height(0), window(window), loaded(false), theme(Theme::Overworld)
 {}
 
 Level::~Level()
@@ -48,7 +48,7 @@ bool Level::load(const std::string& level)
 		std::string line;
 		while (std::getline(maps, line))
 		{
-			if (line.find(level) != std::string::npos) //Level header found
+			if (line.substr(strlen("name ")) == level) //Level header found
 			{
 				LOG_INFO("Level " + level + " found.");
 				name = level;
@@ -58,6 +58,10 @@ bool Level::load(const std::string& level)
 				size >> width >> height;
 				LOG_TRACE("width : {}, height : {}", width, height);
 				tiles.reserve(width * height);
+
+				std::getline(maps, line);
+				theme = Theme(line.at(strlen("theme ")) - '0');
+				LOG_TRACE("Level theme : {}", theme);
 
 				while (std::getline(maps, line))
 				{
@@ -102,9 +106,9 @@ std::vector<std::string> Level::getLevelsList()
 		std::string line;
 		while (std::getline(maps, line))
 		{
-			if (line.find("name") != std::string::npos) //Level name line found
+			if (line.find("name ") != std::string::npos) //Level name line found
 			{
-				out.push_back(line.substr(5));
+				out.push_back(line.substr(strlen("name ")));
 			}
 		}
 
@@ -137,6 +141,8 @@ bool Level::save() const
 
 			if (line.find(name) != std::string::npos) //Until we find the level name
 			{
+				LOG_INFO("{} found. Overriding save data.", name);
+
 				writeLevel(temp); //Writing level data
 				break;
 			}
@@ -194,6 +200,7 @@ void Level::create(const std::string& name)
 		// Creating default level
 		file << "name " << name << "\n";
 		file << "224 30\n";
+		file << "theme 0\n";
 
 		for (size_t y = 0; y < 30; y++)
 		{
@@ -245,13 +252,32 @@ void Level::writeLevel(std::ofstream& file) const
 {
 	file << "name " << name << "\n";
 	file << width << " " << height << "\n";
+	file << "theme " << (int)theme << "\n";
 
 	for (size_t i = 0; i < height; i++)
 		file << getLine(i);
 }
 
+sf::Color Level::getBackgroundColor()
+{
+	switch (theme)
+	{
+	case Theme::Overworld:
+		return sf::Color(92, 148, 252);
+		break;
+	case Theme::Cave:
+		return sf::Color::Black;
+		break;
+	default:
+		return sf::Color::Red;
+		break;
+	}
+}
+
 void Level::render()
 {
+	// TODO : render the background.
+
 	// Rendering optimization
 	size_t minX = 0, maxX = width, minY = 0, maxY = height;
 

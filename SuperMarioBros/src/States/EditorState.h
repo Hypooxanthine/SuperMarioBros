@@ -20,6 +20,8 @@ public:
 	void openLevel();
 	void createLevel();
 
+	virtual sf::Color getBackgroundColor() const override;
+
 	void moveView(const sf::Vector2f& delta);
 
 	template<class T>

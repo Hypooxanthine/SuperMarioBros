@@ -229,6 +229,15 @@ void EditorState::createLevel()
 	editorSelector();
 }
 
+sf::Color EditorState::getBackgroundColor() const
+{
+	if (level->isLoaded())
+		return level->getBackgroundColor();
+	else
+		return sf::Color(0, 0, 0);
+}
+
+
 void EditorState::moveView(const sf::Vector2f& delta)
 {
 	// Because we're getting center and size by reference, there is no need to initialize those variables more than once, at the first function call.
