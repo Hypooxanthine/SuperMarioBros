@@ -68,6 +68,16 @@ void EditorState::updateEvents(sf::Event& e, const float& dt)
 
 void EditorState::update(const float& dt)
 {
+	// Showing FPS each second
+	/*static sf::Clock c;
+
+	if (c.getElapsedTime().asSeconds() > 1.f)
+	{
+		LOG_INFO("DT  : {}", dt);
+		LOG_INFO("FPS : {}", 1.f / dt);
+		c.restart();
+	}*/
+	
 	static size_t xPos = 0, yPos = 0, xPosOld = 0, yPosOld = 0; //Static because we want these variables to last more than this scope. They are not member variables because they are not used anywhere else than here for now.
 
 	const auto& mousePos = sf::Mouse::getPosition(*window);
@@ -79,7 +89,7 @@ void EditorState::update(const float& dt)
 	static bool outOfView = false;
 	static bool justEnteredView = false;
 
-	// Updating new mouse positions
+	// Updating mouse positions
 	if (belongsToView(mousePosWorld))
 	{
 		// Updating old mouse positions
@@ -112,7 +122,7 @@ void EditorState::update(const float& dt)
 			cursorTile->setHighlight(true);
 	}
 
-	// Stop tile highlighting when cursor leaves view
+	// Unhighlight highlighted tile when cursor leaves level view
 	if (!belongsToView(mousePosWorld))
 	{
 		if (cursorTile)
