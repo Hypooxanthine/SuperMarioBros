@@ -45,6 +45,22 @@ Ref<Tile> GenTile(const TileType& type, Ref<sf::RenderWindow> window)
 		FEED_TILESET(CloudBM);
 		FEED_TILESET(CloudBR);
 
+		FEED_TILESET(PipeTL);
+		FEED_TILESET(PipeTR);
+		FEED_TILESET(PipeL);
+		FEED_TILESET(PipeR);
+
+		FEED_TILESET(FlagT);
+		FEED_TILESET(FlagM);
+
+		FEED_TILESET(CastleEntryM);
+		FEED_TILESET(CastleEntryL);
+		FEED_TILESET(CastleEntryR);
+		FEED_TILESET(CastleEntryT);
+		FEED_TILESET(CastleWallEmpty);
+		FEED_TILESET(CastleWallFilled);
+		FEED_TILESET(CastleBlock);
+
 		init = true;
 	}
 

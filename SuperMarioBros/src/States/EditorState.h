@@ -35,6 +35,7 @@ private:
 	// Views
 	sf::View levelView, toolkitView;
 	sf::Vector2u levelSize, toolkitSize;
+	bool speedCamera;
 
 	// Toolkit
 	sf::RectangleShape toolkitBackground;

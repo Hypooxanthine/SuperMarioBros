@@ -167,6 +167,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Level\Tiles\CastleBlock.cpp" />
+    <ClCompile Include="src\Level\Tiles\CastleEntryL.cpp" />
+    <ClCompile Include="src\Level\Tiles\CastleEntryM.cpp" />
+    <ClCompile Include="src\Level\Tiles\CastleEntryR.cpp" />
+    <ClCompile Include="src\Level\Tiles\CastleEntryT.cpp" />
+    <ClCompile Include="src\Level\Tiles\CastleWallEmpty.cpp" />
+    <ClCompile Include="src\Level\Tiles\CastleWallFilled.cpp" />
+    <ClCompile Include="src\Level\Tiles\FlagM.cpp" />
+    <ClCompile Include="src\Level\Tiles\FlagT.cpp" />
+    <ClCompile Include="src\Level\Tiles\PipeL.cpp" />
+    <ClCompile Include="src\Level\Tiles\PipeR.cpp" />
+    <ClCompile Include="src\Level\Tiles\PipeTL.cpp" />
+    <ClCompile Include="src\Level\Tiles\PipeTR.cpp" />
     <ClCompile Include="src\Level\Tiles\BigBushEmpty.cpp" />
     <ClCompile Include="src\Level\Tiles\CloudBM.cpp" />
     <ClCompile Include="src\Level\Tiles\CloudTM.cpp" />
@@ -199,6 +212,19 @@
     <ClCompile Include="src\Level\Tiles\Stone.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Level\Tiles\CastleBlock.h" />
+    <ClInclude Include="src\Level\Tiles\CastleEntryL.h" />
+    <ClInclude Include="src\Level\Tiles\CastleEntryM.h" />
+    <ClInclude Include="src\Level\Tiles\CastleEntryR.h" />
+    <ClInclude Include="src\Level\Tiles\CastleEntryT.h" />
+    <ClInclude Include="src\Level\Tiles\CastleWallEmpty.h" />
+    <ClInclude Include="src\Level\Tiles\CastleWallFilled.h" />
+    <ClInclude Include="src\Level\Tiles\FlagM.h" />
+    <ClInclude Include="src\Level\Tiles\FlagT.h" />
+    <ClInclude Include="src\Level\Tiles\PipeL.h" />
+    <ClInclude Include="src\Level\Tiles\PipeR.h" />
+    <ClInclude Include="src\Level\Tiles\PipeTL.h" />
+    <ClInclude Include="src\Level\Tiles\PipeTR.h" />
     <ClInclude Include="src\Level\Tiles\BigBushEmpty.h" />
     <ClInclude Include="src\Level\Tiles\CloudBM.h" />
     <ClInclude Include="src\Level\Tiles\CloudTM.h" />

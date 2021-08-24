@@ -26,4 +26,20 @@
 #include "CloudBM.h"
 #include "CloudBR.h"
 
+#include "PipeTL.h"
+#include "PipeTR.h"
+#include "PipeL.h"
+#include "PipeR.h"
+
+#include "FlagT.h"
+#include "FlagM.h"
+
+#include "CastleEntryM.h"
+#include "CastleEntryL.h"
+#include "CastleEntryR.h"
+#include "CastleEntryT.h"
+#include "CastleWallEmpty.h"
+#include "CastleWallFilled.h"
+#include "CastleBlock.h"
+
 Ref<Tile> GenTile(const TileType& type, Ref<sf::RenderWindow> window);

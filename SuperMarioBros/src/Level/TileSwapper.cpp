@@ -55,6 +55,22 @@ void TileSwapper::init()
 	add(TileType::Brick);
 	add(TileType::Mystery);
 
+	add(TileType::PipeTL);
+	add(TileType::PipeTR);
+	add(TileType::PipeL);
+	add(TileType::PipeR);
+
+	add(TileType::FlagT);
+	add(TileType::FlagM);
+
+	add(TileType::CastleBlock);
+	add(TileType::CastleEntryM);
+	add(TileType::CastleEntryL);
+	add(TileType::CastleEntryR);
+	add(TileType::CastleEntryT);
+	add(TileType::CastleWallEmpty);
+	add(TileType::CastleWallFilled);
+
 	add(TileType::LittleBushL);
 	add(TileType::LittleBushM);
 	add(TileType::LittleBushR);

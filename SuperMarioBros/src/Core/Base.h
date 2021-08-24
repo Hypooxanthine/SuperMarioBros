@@ -31,3 +31,4 @@ const uint32_t LEVEL_TILES_Y = 15;
 
 const uint32_t TOOLKIT_WIDTH = 100;
 const float EDITOR_SPEED = 15.f * TILE_SIZE;
+const float EDITOR_SPEED_FACTOR = 3.f;

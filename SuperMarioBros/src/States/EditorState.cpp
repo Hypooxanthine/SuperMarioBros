@@ -5,7 +5,7 @@
 EditorState::EditorState(Ref<sf::RenderWindow> window)
 	: State(window), level(MakeRef<Level>(window)), cursorTile(nullptr), activeTile(nullptr),
 	levelView(sf::View(sf::FloatRect(0.f, (float)(TILE_SIZE * 15), (float)(TILE_SIZE * LEVEL_TILES_X), (float)(TILE_SIZE * LEVEL_TILES_Y)))),
-	toolkitSize(sf::Vector2u(TOOLKIT_WIDTH, window->getSize().y)), swapper(window, (sf::Vector2f)toolkitSize)
+	toolkitSize(sf::Vector2u(TOOLKIT_WIDTH, window->getSize().y)), swapper(window, (sf::Vector2f)toolkitSize), speedCamera(false)
 {
 	
 }
@@ -45,6 +45,19 @@ void EditorState::updateEvents(sf::Event& e, const float& dt)
 			break;
 		case sf::Keyboard::Down:
 			swapper.next();
+			break;
+		case sf::Keyboard::LShift:
+			speedCamera = true;
+			break;
+		}
+	}
+
+	if (e.type == sf::Event::KeyReleased)
+	{
+		switch (e.key.code)
+		{
+		case sf::Keyboard::LShift:
+			speedCamera = false;
 			break;
 		}
 	}
@@ -86,6 +99,7 @@ void EditorState::update(const float& dt)
 		justEnteredView = false;
 	}
 
+	// Highlighting the correct tile when cursor is moving inside the view
 	if ((xPos != xPosOld || yPos != yPosOld || justEnteredView) // Update highlighting when cursor just entered level view on the same tile it had exited.
 		&& belongsToView(mousePosWorld))
 	{
@@ -98,6 +112,7 @@ void EditorState::update(const float& dt)
 			cursorTile->setHighlight(true);
 	}
 
+	// Stop tile highlighting when cursor leaves view
 	if (!belongsToView(mousePosWorld))
 	{
 		if (cursorTile)
@@ -106,18 +121,23 @@ void EditorState::update(const float& dt)
 		cursorTile = nullptr;
 	}
 
+	// Camera movement
 	if (window->hasFocus())
 	{
+		// Applying a multi
+		float speed = EDITOR_SPEED * (speedCamera ? EDITOR_SPEED_FACTOR : 1.f);
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-			moveView(sf::Vector2f(-EDITOR_SPEED * dt, 0));
+			moveView(sf::Vector2f(-speed * dt, 0));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			moveView(sf::Vector2f(EDITOR_SPEED * dt, 0));
+			moveView(sf::Vector2f(speed * dt, 0));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			moveView(sf::Vector2f(0.f, EDITOR_SPEED * dt));
+			moveView(sf::Vector2f(0.f, speed * dt));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-			moveView(sf::Vector2f(0.f, -EDITOR_SPEED * dt));
+			moveView(sf::Vector2f(0.f, -speed * dt));
 	}
 
+	// Placing/removing tiles
 	if (belongsToView(mousePosWorld) && window->hasFocus())
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))

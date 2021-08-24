@@ -67,6 +67,7 @@ enum class TileType
 	CastleEntryT,
 	CastleWallEmpty,
 	CastleWallFilled,
+	CastleBlock,
 };
 
 class Tile
