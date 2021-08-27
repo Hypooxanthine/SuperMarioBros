@@ -9,7 +9,6 @@
 /* SFML graphic component. */
 #include <SFML/Graphics.hpp>
 
-
 // We will be using shared pointers a lot. Shared pointers are not this expensive for a single referenced
 // pointer compared to unique pointers, so we can use it by default to make the code easier to read.
 template<typename T>
@@ -22,6 +21,9 @@ constexpr Ref<T> MakeRef(Args&& ... args)
 
 /* Logging. */
 #include "Log.h"
+
+/* Utilities. */
+#include "../Util/Util.h"
 
 /* Consts. */
 const float GLOBAL_SCALE = 4.f;

@@ -1,24 +1,25 @@
 #pragma once
 
 #include "State.h"
-#include "../Level/Level.h"
 
-class GameState : public State
+class MainState : public State
 {
 public:
-	GameState(Ref<sf::RenderWindow> window);
-	virtual ~GameState();
+	MainState(Ref<sf::RenderWindow> window);
+	virtual ~MainState();
 
+	virtual void init() override;
 	virtual void updateEvents(sf::Event& e, const float& dt) override;
 	virtual void update(const float& dt) override;
 	virtual void render() override;
-	virtual void init() override;
-
-	virtual Ref<State> getNextState() const override;
 
 	virtual sf::Color getBackgroundColor() const override;
 
+	virtual Ref<State> getNextState() const override;
+
 private:
-	Ref<Level> level;
+	enum class Choice { Game, Editor, Quit };
+
+	Choice choice;
 };
 

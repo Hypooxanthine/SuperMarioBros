@@ -14,7 +14,7 @@ Application::~Application()
 
 void Application::run()
 {
-	states.push(MakeRef<EditorState>(window));
+	states.push(MakeRef<MainState>(window));
 	states.top()->init();
 
 	while (window->isOpen())
@@ -23,6 +23,7 @@ void Application::run()
 		update();
 		render();
 		updateDt();
+		checkState();
 	}
 }
 
@@ -60,4 +61,25 @@ void Application::render()
 void Application::updateDt()
 {
 	dt = dtClock.restart().asSeconds();
+}
+
+void Application::checkState()
+{
+	if (!states.empty())
+	{
+		if (states.top()->isPendingKill())
+		{
+			auto nextState = states.top()->getNextState();
+
+			if (nextState != nullptr)
+				states.push(nextState);
+			else
+				states.pop();
+
+			if (!states.empty())
+				states.top()->init();
+			else
+				window->close();
+		}
+	}
 }

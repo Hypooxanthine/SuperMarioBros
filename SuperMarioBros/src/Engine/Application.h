@@ -17,6 +17,7 @@ public:
 	void update();
 	void render();
 	void updateDt();
+	void checkState();
 
 private:
 	// Windowing

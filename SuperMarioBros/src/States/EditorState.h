@@ -15,6 +15,8 @@ public:
 	virtual void update(const float& dt) override;
 	virtual void render() override;
 
+	virtual Ref<State> getNextState() const override;
+
 	void editorSelector();
 
 	void openLevel();

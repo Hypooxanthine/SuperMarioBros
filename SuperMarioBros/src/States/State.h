@@ -14,7 +14,14 @@ public:
 	virtual void init() = 0;
 	virtual sf::Color getBackgroundColor() const = 0;
 
+	inline const bool& isPendingKill() const { return pendingKill; }
+	virtual Ref<State> getNextState() const = 0;
+
 protected:
+	inline void endState() { pendingKill = true; }
+
 	Ref<sf::RenderWindow> window;
+	
+	bool pendingKill;
 };
 

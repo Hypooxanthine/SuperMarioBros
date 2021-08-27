@@ -167,6 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\States\MainState.cpp" />
     <ClCompile Include="src\Level\Tiles\CastleBlock.cpp" />
     <ClCompile Include="src\Level\Tiles\CastleEntryL.cpp" />
     <ClCompile Include="src\Level\Tiles\CastleEntryM.cpp" />
@@ -212,6 +213,7 @@
     <ClCompile Include="src\Level\Tiles\Stone.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\States\MainState.h" />
     <ClInclude Include="src\Level\Tiles\CastleBlock.h" />
     <ClInclude Include="src\Level\Tiles\CastleEntryL.h" />
     <ClInclude Include="src\Level\Tiles\CastleEntryM.h" />

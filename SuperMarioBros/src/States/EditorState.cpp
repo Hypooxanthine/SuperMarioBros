@@ -49,6 +49,9 @@ void EditorState::updateEvents(sf::Event& e, const float& dt)
 		case sf::Keyboard::LShift:
 			speedCamera = true;
 			break;
+		case sf::Keyboard::Escape:
+			endState();
+			break;
 		}
 	}
 
@@ -180,6 +183,11 @@ void EditorState::render()
 		window->setView(levelView);
 		level->render();
 	}
+}
+
+Ref<State> EditorState::getNextState() const
+{
+	return nullptr;
 }
 
 void EditorState::editorSelector()
