@@ -12,6 +12,8 @@ EditorState::EditorState(Ref<sf::RenderWindow> window)
 
 EditorState::~EditorState()
 {
+	window->setSize(levelSize);
+
 	level->save();
 }
 
@@ -196,8 +198,9 @@ void EditorState::editorSelector()
 
 	std::cout << "What to do ?\n"
 		<< "    1. Open a level\n"
-		<< "    2. Create a level\n";
-	size_t in = getUserIntRange("Choice", 1, 2);
+		<< "    2. Create a level\n"
+		<< "    3. Exit\n";
+	size_t in = getUserIntRange("Choice", 1, 3);
 
 	switch (in)
 	{
@@ -207,7 +210,9 @@ void EditorState::editorSelector()
 	case 2:
 		createLevel();
 		break;
+	case 3:
 	default:
+		endState();
 		break;
 	}
 }

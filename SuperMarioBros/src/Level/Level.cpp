@@ -124,6 +124,9 @@ std::vector<std::string> Level::getLevelsList()
 
 bool Level::save() const
 {
+	if (!loaded)
+		return false;
+
 	std::fstream maps;
 	std::ofstream temp; //Temporary file that will be the new save file at the end
 	maps.open(pathIn);
