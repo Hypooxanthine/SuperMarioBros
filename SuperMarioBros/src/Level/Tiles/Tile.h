@@ -89,8 +89,6 @@ public:
 	inline void setSolid(const bool& value) { solid = value; }
 	inline void setPosition(const sf::Vector2f& position) { this->position = position; }
 
-	//Operators
-
 protected:
 	Ref<sf::RenderWindow> window;
 	bool highlight;

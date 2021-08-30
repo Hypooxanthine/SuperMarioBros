@@ -167,6 +167,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Drawable.cpp" />
+    <ClCompile Include="src\Entities\Entity.cpp" />
     <ClCompile Include="src\States\MainState.cpp" />
     <ClCompile Include="src\Level\Tiles\CastleBlock.cpp" />
     <ClCompile Include="src\Level\Tiles\CastleEntryL.cpp" />
@@ -203,7 +205,7 @@
     <ClCompile Include="src\Level\Level.cpp" />
     <ClCompile Include="src\Level\Tiles\Tiles.cpp" />
     <ClCompile Include="src\States\GameState.cpp" />
-    <ClCompile Include="src\Engine\Application.cpp" />
+    <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\States\State.cpp" />
@@ -213,6 +215,8 @@
     <ClCompile Include="src\Level\Tiles\Stone.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Drawable.h" />
+    <ClInclude Include="src\Entities\Entity.h" />
     <ClInclude Include="src\States\MainState.h" />
     <ClInclude Include="src\Level\Tiles\CastleBlock.h" />
     <ClInclude Include="src\Level\Tiles\CastleEntryL.h" />
@@ -249,7 +253,7 @@
     <ClInclude Include="src\Level\Level.h" />
     <ClInclude Include="src\Level\Tiles\Tiles.h" />
     <ClInclude Include="src\States\GameState.h" />
-    <ClInclude Include="src\Engine\Application.h" />
+    <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Core\Log.h" />
     <ClInclude Include="src\Core\Base.h" />
     <ClInclude Include="src\States\State.h" />
